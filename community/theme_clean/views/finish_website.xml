@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<odoo>
+    <template id="mysisco_website_homepage_unify" inherit_id="website.homepage" name="Home">
+        <xpath expr="//t[@t-call='website.layout']" position="replace">
+            <t t-call="website.layout">
+                <t t-set="pageName" t-value="'homepage'"/>
+                <div class="oe_structure"/>
+                <div id="wrap">
+                    <t t-call="theme_clean.s_cover"/>
+                    <div id="wrap" class="oe_structure oe_empty" style="padding: 0px; margin: 0px; border: 0px;"/>
+                    <t t-call="theme_clean.s_text_image"/>
+                    <div id="wrap" class="oe_structure oe_empty" style="padding: 0px; margin: 0px; border: 0px;"/>
+                    <t t-call="theme_clean.s_title"/>
+                    <div id="wrap" class="oe_structure oe_empty" style="padding: 0px; margin: 0px; border: 0px;"/>
+                    <t t-call="theme_clean.s_features"/>
+<!--                    <div id="wrap" class="oe_structure oe_empty" style="padding: 0px; margin: 0px; border: 0px;"/>-->
+                    <t t-call="theme_clean.s_carousel"/>
+                    <div id="wrap" class="oe_structure oe_empty" style="padding: 0px; margin: 0px; border: 0px;"/>
+                    <t t-call="theme_clean.s_numbers"/>
+                    <div id="wrap" class="oe_structure oe_empty" style="padding: 0px; margin: 0px; border: 0px;"/>
+                    <t t-call="theme_clean.s_three_columns"/>
+                    <div id="wrap" class="oe_structure oe_empty" style="padding: 0px; margin: 0px; border: 0px;"/>
+                    <t t-call="theme_clean.s_call_to_action"/>
+                    <div id="wrap" class="oe_structure oe_empty" style="padding: 0px; margin: 0px; border: 0px;"/>
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>

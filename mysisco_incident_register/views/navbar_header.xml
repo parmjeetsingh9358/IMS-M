@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="warning_header_default_inherited" inherit_id="website.layout">
+        <xpath expr="//header" position="before">
+            <t t-if="request.env.user.partner_id.active_subscription">
+                <header
+                    class="center"
+                    style="background-color: green;"
+                    groups="base.group_portal"
+                >
+                    <p>Your Subscription Package active ...!</p>
+                    <a t-attf-href="'%s' % {{ request.env.user.partner_id.name}}" />
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="1em"
+                        viewBox="0 0 448 512"
+                    >
+                        <path
+                            d="M349.4 44.6c5.9-13.7 1.5-29.7-10.6-38.5s-28.6-8-39.9 1.8l-256 224c-10 8.8-13.6 22.9-8.9 35.3S50.7 288 64 288H175.5L98.6 467.4c-5.9 13.7-1.5 29.7 10.6 38.5s28.6 8 39.9-1.8l256-224c10-8.8 13.6-22.9 8.9-35.3s-16.6-20.7-30-20.7H272.5L349.4 44.6z"
+                        />
+                    </svg>
+                </header>
+            </t>
+            <t t-else="">
+                <header
+                    class="center"
+                    style="background-color: red;"
+                    groups="base.group_portal"
+                >
+                    <p>Your have no subscription Package ...!</p>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="1em"
+                        viewBox="0 0 576 512"
+                    >
+                        <path
+                            d="M360 64c13.255 0 24-10.745 24-24V24c0-13.255-10.745-24-24-24H24C10.745 0 0 10.745 0 24v16c0 13.255 10.745 24 24 24 0 90.965 51.016 167.734 120.842 192C75.016 280.266 24 357.035 24 448c-13.255 0-24 10.745-24 24v16c0 13.255 10.745 24 24 24h336c13.255 0 24-10.745 24-24v-16c0-13.255-10.745-24-24-24 0-90.965-51.016-167.734-120.842-192C308.984 231.734 360 154.965 360 64zM192 208c-57.787 0-104-66.518-104-144h208c0 77.945-46.51 144-104 144z"
+                        />
+                    </svg>
+                </header>
+            </t>
+        </xpath>
+    </template>
+</odoo>

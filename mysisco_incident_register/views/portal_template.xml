@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+            id="hspl_portal_my_home_view_add_incident"
+            name="Incident"
+            customize_show="True"
+            inherit_id="portal.portal_my_home"
+            priority="45"
+    >
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Incident</t>
+                <t t-set="url" t-value="'/my/incident'"/>
+                <t t-set="placeholder_count" t-value="'incident_count'"/>
+            </t>
+        </xpath>
+
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="after">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Register new incident</t>
+            </t>
+            <form method="POST" t-attf-action="/incident/register">
+                <button
+                        name="create_new_incident_register"
+                        type="action"
+                        class="btn btn-primary"
+                        style="float: right; margin-right: 5px; margin-top: 6px;"
+                >Register new Incident
+                </button>
+                <input
+                        type="hidden"
+                        name="csrf_token"
+                        t-att-value="request.csrf_token()"
+                />
+            </form>
+        </xpath>
+
+    </template>
+
+    <template id="portal_my_home_menu_incident" name="Portal layout : incident menu"
+              inherit_id="portal.portal_breadcrumbs">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'incident' or grouped_incident"
+                t-attf-class="breadcrumb-item #{'active ' if not grouped_incident else ''}">
+                <a t-if="grouped_incident" t-attf-href="/my/incident?{{ keep_query() }}">Incident Register</a>
+                <t t-else="">Incident Register</t>
+            </li>
+        </xpath>
+    </template>
+
+    <template id="incident_register_templates" name="Incident">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Incident</t>
+            </t>
+            <t t-if="not grouped_incident">
+                <div class="alert alert-warning mt8" role="alert">
+                    <p>No services found.</p>
+                </div>
+            </t>
+            <t t-call="mysisco_incident_register.portal_my_incident_list"/>
+        </t>
+    </template>
+
+    <template id="portal_my_incident_list" name="Incident List">
+        <t t-if="grouped_incident">
+            <t t-call="portal.portal_table">
+                <div t-att-class="'mt-2' if not no_breadcrumbs else 'mt-0'">
+                    <thead>
+                        <tr>
+                            <th class="text-left">Number</th>
+                            <th>Partner Name</th>
+                            <th>Date Received</th>
+                            <th>Manager Name</th>
+                            <th>Incident Type</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="grouped_incident" t-as="incident">
+                            <tr>
+                                <td class="text-left">
+                                    <a
+                                            t-attf-href="/my/incident/#{incident.id}?{{ keep_query() }}"
+                                    >
+                                        <span t-field="incident.name"/>
+                                    </a>
+                                </td>
+                                <td>
+                                    <span t-esc="incident.partner_name"/>
+                                </td>
+                                <td>
+                                    <span t-esc="incident.date_received"/>
+                                </td>
+                                <td>
+                                    <span t-esc="incident.manager_name"/>
+                                </td>
+                                <td>
+                                    <t t-foreach="incident.incident_type" t-as="incident_type">
+                                        <t t-if="incident_type">
+                                            <span t-esc="incident_type.name"/>
+                                            <b>,</b>
+                                        </t>
+                                    </t>
+                                </td>
+                                <td>
+                                    <span t-esc="incident.description"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </div>
+            </t>
+        </t>
+    </template>
+
+
+    <template id="mysisco_incident_register.my_dashboard_link" inherit_id="portal.user_dropdown">
+        <xpath expr="//div[@role='menu']/a[2]/i" position="replace">
+            <i class="fa fa-fw fa-id-card-o me-1 small text-muted"/>
+            My Dashboard
+        </xpath>
+    </template>
+
+    <template id="mysisco_incident_register.my_dashboard_website" inherit_id="portal.portal_layout">
+        <xpath expr="//*[hasclass('o_portal_my_security')]" position="replace">
+            <span>&#160;</span>
+        </xpath>
+    </template>
+
+
+    <template
+            id="portal_my_incident_register"
+            name="Incident Register"
+            inherit_id="portal.portal_sidebar"
+            primary="True"
+    >
+        <xpath expr="//div[hasclass('o_portal_sidebar')]" position="inside">
+
+            <div class="row mt16 o_register_portal_sidebar">
+                <div id="task_content" class="col-lg-12 justify-content-end">
+                    <div id="card" class="card">
+                        <div
+                                id="card_header"
+                                class="card-header bg-white"
+                                data-anchor="true"
+                        >
+                            <div class="row g-0">
+                                <div class="col-12">
+                                    <h5 class="d-flex mb-1 mb-md-0 row">
+                                        <div class="col-7">
+                                            <span
+                                                    t-field="incident_id.name"
+                                                    class="text-truncate"
+                                            />
+                                            <small
+                                                    class="text-muted d-none d-md-inline"
+                                            >
+                                                (#
+                                                <span t-field="incident_id.id"/>
+                                                )
+                                            </small>
+                                        </div>
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="card_body" class="card-body">
+                            <div class="float-end"/>
+                            <h4 style="padding-bottom: 1rem; color: #0096FF;">
+                                <div>
+                                    <strong>Incident Register:</strong>
+                                    <a t-field="incident_id.name"/>
+                                </div>
+                            </h4>
+                            <h4 style="padding-bottom: 1rem;">
+                                <span style="border-bottom: 2px solid; color: #0000FF;">
+                                    Reporter Details
+                                </span>
+                            </h4>
+                            <div class="row mb-4 container">
+                                <div class="col-12 col-md-6">
+                                    <div t-if="incident_id.partner_id">
+                                        <strong>Partner:</strong>
+                                        <span t-field="incident_id.partner_id.name"/>
+                                    </div>
+                                    <div t-if="incident_id.partner_name">
+                                        <strong>Partner:</strong>
+                                        <span t-field="incident_id.partner_name"/>
+                                    </div>
+
+                                    <div t-if="incident_id.position">
+                                        <strong>Position Title :</strong>
+                                        <span t-field="incident_id.position"/>
+                                    </div>
+                                </div>
+                                <div
+                                        class="col-12 col-md-6"
+                                        name="portal_my_task_second_column"
+                                >
+                                    <div t-if="incident_id.date_received">
+                                        <strong>Contact number:</strong>
+                                        <span
+                                                t-field="incident_id.date_received"
+                                                t-options='{"widget": "date"}'
+                                        />
+                                    </div>
+                                    <div t-if="incident_id.immediate_action">
+                                        <strong>City:</strong>
+                                        <span t-field="incident_id.city"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-4 container">
+                                <div class="col-12 col-md-6">
+                                    <div t-if="incident_id.date_received">
+                                        <strong>Date Received:</strong>
+                                        <span
+                                                t-field="incident_id.date_received"
+                                        />
+                                    </div>
+                                    <div t-if="incident_id.date_first">
+                                        <strong>Date First :</strong>
+                                        <span t-field="incident_id.date_first"/>
+                                    </div>
+                                    <div t-if="incident_id.incident_type">
+                                        <strong>Incident Type :</strong>
+                                        <t t-foreach="incident_id.incident_type" t-as="incident_type">
+                                            <t t-if="incident_type">
+                                                <span t-esc="incident_type.name" style="white-space: pre-wrap;"/>
+                                                <b>,</b>
+                                            </t>
+                                        </t>
+                                    </div>
+                                </div>
+                                <div
+                                        class="col-12 col-md-6"
+                                        name="portal_my_task_second_column"
+                                >
+                                    <div t-if="incident_id.time_of_incident">
+                                        <strong>Time Of Incident:</strong>
+                                        <span
+                                                t-field="incident_id.time_of_incident"
+                                                t-options='{"widget": "time"}'
+                                        />
+                                    </div>
+                                    <div t-if="incident_id.time_first_incident">
+                                        <strong>Time First Incident:</strong>
+                                        <span
+                                                t-field="incident_id.time_first_incident"
+                                                t-options='{"widget": "time"}'
+                                        />
+                                    </div>
+                                    <div t-if="incident_id.address">
+                                        <strong>Address:</strong>
+                                        <span t-esc="incident_id.address" style="white-space: pre-wrap;"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <h4 style="padding-bottom: 1rem;">
+                                <span style="border-bottom: 2px solid; color: #0000FF;">
+                                    Who was involved ?
+                                </span>
+                            </h4>
+                            <div class="row mb-4 container">
+                                <div class="col-12 col-md-6">
+                                    <div
+                                            t-if="incident_id.full_name"
+                                    >
+                                        <strong>
+                                            Full Name:
+                                        </strong>
+                                        <span
+                                                t-field="incident_id.full_name"
+                                        />
+                                    </div>
+                                    <div t-if="incident_id.participant_address">
+                                        <strong>Address:</strong>
+                                        <span t-esc="incident_id.participant_address" style="white-space: pre-wrap;"/>
+                                    </div>
+                                    <div t-if="incident_id.injured">
+                                        <strong>
+                                            Injured:
+                                        </strong>
+                                        <span
+                                                t-field="incident_id.injured"
+                                        />
+                                    </div>
+                                </div>
+                                <div
+                                        class="col-12 col-md-6"
+                                        name="portal_my_task_second_column"
+                                >
+                                    <div t-if="incident_id.date_of_birth">
+                                        <strong>Date Of Birth:</strong>
+                                        <span
+                                                t-field="incident_id.date_of_birth"
+                                        />
+                                    </div>
+                                    <div t-if="incident_id.involved_witness">
+                                        <strong>Involved/Witness:</strong>
+                                        <span t-field="incident_id.involved_witness"/>
+                                    </div>
+                                    <div t-if="incident_id.medical_attention_required">
+                                        <strong>
+                                            Medical Attention Required:
+                                        </strong>
+                                        <span
+                                                t-field="incident_id.medical_attention_required"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <h5>
+                                <span>Staff/Carer or Others: details</span>
+                            </h5>
+                            <div class="row mb-4 container">
+                                <div class="col-12 col-md-6">
+                                    <div
+                                            t-if="incident_id.staff_full_name"
+                                    >
+                                        <strong>
+                                            Full Name:
+                                        </strong>
+                                        <span
+                                                t-field="incident_id.staff_full_name"
+                                        />
+                                    </div>
+                                    <div t-if="incident_id.staff_other">
+                                        <strong>Staff/Other:</strong>
+                                        <span t-esc="incident_id.staff_other"/>
+                                    </div>
+                                    <div t-if="incident_id.staff_injured">
+                                        <strong>
+                                            Injured:
+                                        </strong>
+                                        <span
+                                                t-field="incident_id.staff_injured"
+                                        />
+                                    </div>
+                                </div>
+                                <div
+                                        class="col-12 col-md-6"
+                                        name="portal_my_task_second_column"
+                                >
+                                    <div t-if="incident_id.staff_address">
+                                        <strong>Address:</strong>
+                                        <span
+                                                t-field="incident_id.staff_address" style="white-space: pre-wrap;"
+                                        />
+                                    </div>
+                                    <div t-if="incident_id.staff_involved_witness">
+                                        <strong>Involved/Witness:</strong>
+                                        <span t-field="incident_id.staff_involved_witness"/>
+                                    </div>
+                                    <div t-if="incident_id.staff_medical_attention_required">
+                                        <strong>
+                                            Staff Medical Attention Required:
+                                        </strong>
+                                        <span
+                                                t-field="incident_id.staff_medical_attention_required"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <h5>
+                                <span>eg. What was client doing before incident ?</span>
+                            </h5>
+                            <div class="row mb-4 container">
+                                <div class="col-12 col-md-6">
+                                    <div
+                                            t-if="incident_id.before_incident"
+                                    >
+                                        <strong>
+                                            Before Inciden:
+                                        </strong>
+                                        <span
+                                                t-field="incident_id.before_incident"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h4 style="padding-bottom: 1rem;">
+                                <span style="border-bottom: 2px solid; color: #0000FF;">
+                                    What Happened ?
+                                </span>
+                            </h4>
+                            <div class="row mb-4 container">
+                                <div class="col-12 col-md-6">
+                                    <div t-if="incident_id.manager_name">
+                                        <strong>Manager’s name:</strong>
+                                        <span
+                                                t-field="incident_id.manager_name"
+                                        />
+                                    </div>
+                                    <div t-if="incident_id.damaged_property">
+                                        <strong>Was any property or equipment damaged?</strong>
+                                        <span
+                                                t-field="incident_id.damaged_property"
+                                        />
+                                    </div>
+                                    <div t-if="incident_id.date">
+                                        <strong>Date:</strong>
+                                        <span
+                                                t-field="incident_id.date"
+                                                t-options='{"widget": "date"}'
+                                        />
+                                    </div>
+                                    <div t-if="incident_id.details">
+                                        <strong>Details of damage:</strong>
+                                        <span t-field="incident_id.details"/>
+                                    </div>
+
+                                </div>
+                                <div
+                                        class="col-12 col-md-6"
+                                        name="portal_my_task_second_column"
+                                >
+                                    <div t-if="incident_id.incident_reported">
+                                        <strong>Incident reported to the Line Manager?</strong>
+                                        <span t-field="incident_id.incident_reported"/>
+                                    </div>
+                                    <div t-if="incident_id.contacted_police">
+                                        <strong>Police Contacted?</strong>
+                                        <span t-field="incident_id.contacted_police"/>
+                                    </div>
+                                    <div t-if="incident_id.attachment">
+                                        <strong>Attachment</strong>
+                                        <span t-field="incident_id.attachment"/>
+                                    </div>
+                                    <div t-if="incident_id.immediate_action">
+                                        <strong>Immediate Action Taken by staff</strong>
+                                        <span t-field="incident_id.immediate_action"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" t-if="incident_id.description">
+                                <div t-if="not is_html_empty(incident_id.description)">
+                                    <hr class="mb-1"/>
+                                    <div class="d-flex my-2">
+                                        <strong style="color: #0000FF;">Description</strong>
+                                    </div>
+                                    <div
+                                            class="py-1 px-2 bg-100 small"
+                                            t-field="incident_id.description"
+                                    />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div>
+                                    <hr class="mb-1"/>
+                                    <div class="d-flex my-2">
+                                        <strong style="color: #ff0000;">Notes:</strong>&#160;&#160;
+                                        <span>If you want to edit so contact your manager</span>&#160;
+                                        <a t-field="incident_id.manager_name" style="color: #3A86FF;"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="incident_sharing_embed" name="incident Sharing View Embed">
+        <t t-call="web.layout">
+            <t t-set="head_incident_sharing">
+                <script type="text/javascript">
+                    odoo.__session_info__ =
+                    <t t-out="json.dumps(session_info)"/>
+                    ;
+                    // Prevent the menu_service to load anything. In an ideal
+                    // world, Register Sharing assets would only
+                    // contain
+                    // what is genuinely necessary, and not the whole backend.
+                    odoo.loadMenusPromise = Promise.resolve();
+                </script>
+                <base target="_parent"/>
+                <t t-call-assets="web.assets_common" t-js="false"/>
+                <t t-call-assets="mysisco_register_sharing.webclient" t-js="false"/>
+                <t t-call-assets="web.assets_common" t-css="false"/>
+                <t t-call-assets="mysisco_register_sharing.webclient" t-css="false"/>
+                <t t-call="web.conditional_assets_tests"/>
+            </t>
+            <t t-set="head" t-value="head_incident_sharing + (head or '')"/>
+            <t t-set="body_classname" t-value="'o_web_client o_register_sharing'"/>
+        </t>
+    </template>
+
+    <template id="incident_sharing" name="Incident Sharing View">
+        <!--    We need to forward the request lang to ensure that the lang set on the portal match the lang delivered -->
+        <iframe
+                class="flex-grow-1"
+                frameborder="0"
+                t-attf-src="/{{ request.context['lang'] }}/my/incident/{{ str(incident_id) }}/incident_sharing_portal"
+        />
+    </template>
+
+    <template id="incident_sharing_portal" name="Incident Sharing View in Portal">
+        <t t-call="portal.frontend_layout">
+            <!-- To add the class on div#wrapwrap to remove the overflow -->
+            <t t-set="pageName" t-value="'o_register_sharing_container'"/>
+            <t t-set="no_footer" t-value="true"/>
+            <t t-call="mysisco_incident_register.incident_sharing"/>
+        </t>
+    </template>
+</odoo>

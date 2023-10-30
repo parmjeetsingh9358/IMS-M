@@ -1,0 +1,102 @@
+<odoo>
+    <record model="ir.ui.view" id="send_notification_type_tree_view_id">
+        <field name="name">send.notification.type.tree.view</field>
+        <field name="model">send.notification.type</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="send_notification_type_form_view_id">
+        <field name="name">send.notification.type.form.view</field>
+        <field name="model">send.notification.type</field>
+        <field name="arch" type="xml">
+            <form string="Send Notification Type">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="send_notification_type_action_id" model="ir.actions.act_window">
+        <field name="name">Send Notification Type</field>
+        <field name="res_model">send.notification.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="send_notification_type_tree_view_id"/>
+    </record>
+
+    <record model="ir.ui.view" id="notification_type_commission_incident_tree_view_id">
+        <field name="name">notification.type.commission.incident.tree.view</field>
+        <field name="model">notification.type.commission.incident</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="notification_type_commission_incident_form_view_id">
+        <field name="name">notification.type.commission.incident.form.view</field>
+        <field name="model">notification.type.commission.incident</field>
+        <field name="arch" type="xml">
+            <form string="Notification Type Commission">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record
+            id="notification_type_commission_incident_action_id"
+            model="ir.actions.act_window"
+    >
+        <field name="name">Notification Type Commission</field>
+        <field name="res_model">notification.type.commission.incident</field>
+        <field name="view_mode">tree,form</field>
+        <field
+                name="view_id"
+                ref="notification_type_commission_incident_tree_view_id"
+        />
+    </record>
+
+    <record model="ir.ui.view" id="incident_type_tree_view_id">
+        <field name="name">incident.type.tree.view</field>
+        <field name="model">incident.type</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="incident_type_form_view_id">
+        <field name="name">incident.type.form.view</field>
+        <field name="model">incident.type</field>
+        <field name="arch" type="xml">
+            <form string="Incident Type">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="incident_type_action_id" model="ir.actions.act_window">
+        <field name="name">Incident Type</field>
+        <field name="res_model">incident.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="incident_type_tree_view_id"/>
+    </record>
+
+</odoo>

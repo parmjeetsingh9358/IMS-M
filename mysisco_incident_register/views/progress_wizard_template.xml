@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="wizard_incident_register" name="Wizard Checkout">
+        <div class="row">
+            <div class="col-xl">
+                <div class="wizard">
+                    <div class="mysisco-progress-wizard">
+                        <a class="no-decoration" t-att-href="'/incident/register/%s' % (token) if step&gt;=5 and token else '/incident/register' if step==5 else '#'">
+                            <div id="wizard-step10"
+                                 t-att-class="'progress-wizard-step %s' % (step == 5 and 'active' or step&gt;5 and 'complete' or 'disabled')">
+                                <div class="progress-wizard-bar d-none d-md-block"/>
+                                <span class="progress-wizard-dot d-none d-md-inline-block"></span>
+                                <div class="text-center progress-wizard-steplabel">Reporter Details</div>
+                            </div>
+                        </a>
+                        <a class="no-decoration" t-att-href="'/incident/details/%s' % (token) if step&gt;=15 and token else '#'">
+                            <div id="wizard-step20"
+                                 t-att-class="'progress-wizard-step %s' % (step == 15 and 'active' or step&gt;15 and 'complete' or 'disabled')">
+                                <div class="progress-wizard-bar d-none d-md-block"/>
+                                <span class="progress-wizard-dot d-none d-md-inline-block"></span>
+                                <div class="text-center progress-wizard-steplabel">Incident Details</div>
+                            </div>
+                        </a>
+                        <a class="no-decoration" t-att-href="'/incident/involved/%s' % (token) if step&gt;=25 and token else '#'">
+                            <div id="wizard-step40"
+                                 t-att-class="'progress-wizard-step %s' % (step == 25 and 'active' or step&gt;25 and 'complete' or 'disabled')">
+                                <div class="progress-wizard-bar d-none d-md-block"/>
+                                <span class="progress-wizard-dot d-none d-md-inline-block"></span>
+                                <div class="text-center progress-wizard-steplabel">Who was involved?</div>
+                            </div>
+                        </a>
+                        <a class="no-decoration" t-att-href="'/incident/background/%s' % (token) if step&gt;=35 and token else '#'">
+                            <div id="wizard-step40"
+                                 t-att-class="'progress-wizard-step %s' % (step == 35 and 'active' or step&gt;35 and 'complete' or 'disabled')">
+                                <div class="progress-wizard-bar d-none d-md-block"/>
+                                <span class="progress-wizard-dot d-none d-md-inline-block"></span>
+                                <div class="text-center progress-wizard-steplabel">Incident Background</div>
+                            </div>
+                        </a>
+                        <a class="no-decoration" t-att-href="'/incident/happened/%s' % (token) if step&gt;=40 and token else '#'">
+                            <div id="wizard-step40"
+                                 t-att-class="'progress-wizard-step %s' % (step == 40 and 'active' or step&gt;40 and 'complete' or 'disabled')">
+                                <div class="progress-wizard-bar d-none d-md-block"/>
+                                <span class="progress-wizard-dot d-none d-md-inline-block"></span>
+                                <div class="text-center progress-wizard-steplabel">What Happened?</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+</odoo>

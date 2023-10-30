@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_incident_register,incident.register,model_incident_register,,1,1,1,1
+access_send_notification_type,send.notification.type,model_send_notification_type,,1,1,1,1
+access_notification_type_commission_incident,notification.type.commission.incident,model_notification_type_commission_incident,,1,1,1,1
+access_incident_register_share_wizard,incident.register.share.wizard,model_incident_register_share_wizard,,1,1,1,0
+access_incident_type,access_incident_type,mysisco_incident_register.model_incident_type,,1,1,1,0
+access_incident_role,access_incident_role,mysisco_incident_register.model_incident_role,,1,1,1,0
+access_incident_city,access_incident_city,mysisco_incident_register.model_incident_city,,1,1,1,0
+access_incident_city_admin,access_incident_city_admin,mysisco_incident_register.model_incident_city,mysisco_incident_register.group_incident_register_admin,1,1,1,1
+access_incident_register_collaborator,access_incident_register_collaborator,mysisco_incident_register.model_incident_register_collaborator,,1,1,1,1
+access_incident_register_partner,access_incident_register_partner,mysisco_incident_register.model_incident_register_partner,,1,1,1,1

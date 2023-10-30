@@ -1,0 +1,1215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="incident_reporter_template" name="Incident Reporter Template">
+        <!--        <t t-set="no_footer" t-value="1" />-->
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="container oe_website_sale py-2">
+                    <div class="row">
+                        <div class="col-12">
+                            <t
+                                    t-call="mysisco_incident_register.wizard_incident_register"
+                            >
+                                <t t-set="step" t-value="5"/>
+                                <t t-set="token" t-value="token"/>
+                            </t>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <section
+                                class="s_website_form o_incident_container_border"
+                                data-vcss="001"
+                                data-snippet="s_website_form"
+                        >
+                            <div class="col-12 col-xl order-xl-1">
+                                <div>
+                                    <form
+                                            id="incident_form"
+                                            action="/website/form/"
+                                            method="post"
+                                            enctype="multipart/form-data"
+                                            class="o_mark_required s_website_form_no_recaptcha"
+                                            data-mark="*"
+                                            data-model_name="incident.register"
+                                            data-force_action="incident.register.report"
+                                            data-success-mode="redirect"
+                                            data-success-page="/incident/success?str=details"
+                                            hide-change-model="true"
+                                    >
+                                        <div class="s_website_form_rows row s_col_no_bgcolor">
+                                            <div
+                                                    class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                                    data-type="char"
+                                                    data-name="Field"
+                                            >
+                                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                    <input type="hidden" name="token" t-att-value="token"/>
+                                                    <div class="col-sm">
+                                                        <label
+                                                                class="col-form-label col-sm-auto s_website_form_label"
+                                                                for="partner_id"
+                                                        >
+                                                            <span class="s_website_form_label_content">
+                                                                Name of the person reporting this
+                                                                incident:
+                                                            </span>
+                                                            <span class="s_website_form_mark">*</span>
+                                                        </label>
+                                                        <input
+                                                                id="partner_id"
+                                                                type="text"
+                                                                required=""
+                                                                class="form-control s_website_form_input"
+                                                                name="partner_name"
+                                                                t-att-value="checkout.get('partner_name')"
+                                                        />
+                                                    </div>
+                                                    <div class="col-sm">
+                                                        <label
+                                                                class="col-form-label col-sm-auto s_website_form_label"
+                                                                for="contact_number"
+                                                        >
+                                                            <span class="s_website_form_label_content">
+                                                                Contact number:
+                                                            </span>
+                                                            <span class="s_website_form_mark">*</span>
+                                                        </label>
+                                                        <input
+                                                                id="contact_number"
+                                                                type="number"
+                                                                required=""
+                                                                class="form-control s_website_form_input"
+                                                                name="contact_number"
+                                                                data-fill-with="contact_number"
+                                                                t-att-value="checkout.get('contact_number')"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div
+                                                    class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                                    data-type="char"
+                                                    data-name="Field"
+                                            >
+                                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                    <div class="col-sm">
+                                                        <label
+                                                                class="col-form-label col-sm-auto s_website_form_label"
+                                                                for="position"
+                                                        >
+                                                            <span class="s_website_form_label_content">
+                                                                Position Title:
+                                                            </span>
+                                                            <span class="s_website_form_mark">*</span>
+                                                        </label>
+
+                                                        <input
+                                                                id="position"
+                                                                type="text"
+                                                                required=""
+                                                                class="form-control s_website_form_input"
+                                                                name="position"
+                                                                data-fill-with="position"
+                                                                t-att-value="checkout.get('position')"
+                                                        />
+                                                    </div>
+                                                    <div class="col-sm">
+                                                        <label
+                                                                class="col-form-label col-sm-auto s_website_form_label"
+                                                                for="city"
+                                                        >
+                                                            <span class="s_website_form_label_content">
+                                                                City:
+                                                            </span>
+                                                            <span class="s_website_form_mark">*</span>
+                                                        </label>
+
+                                                        <input
+                                                                id="city"
+                                                                type="test"
+                                                                class="form-control s_website_form_input"
+                                                                required=""
+                                                                name="city"
+                                                                data-fill-with="city"
+                                                                t-att-value="checkout.get('city')"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="s_website_form_submit">
+                                            <div class="justify-content-between mt8 float-end">
+                                                <a
+                                                        role="button"
+                                                        href="#"
+                                                        class="btn btn-primary mb32 s_website_form_send"
+                                                >
+                                                    <span>Next</span>
+                                                    <i class="fa fa-chevron-right"/>
+                                                </a>
+                                            </div>
+                                            <div class="float-end" style="margin-top: 12px; margin-right:2px;">
+                                                <span id="s_website_form_result"/>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="incident_details_template" name="Incident Details Template">
+        <!--        <t t-set="no_footer" t-value="1" />-->
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="container oe_website_sale py-2">
+                    <div class="row">
+                        <div class="col-12">
+                            <t
+                                    t-call="mysisco_incident_register.wizard_incident_register"
+                            >
+                                <t t-set="step" t-value="15"/>
+                                <t t-set="token" t-value="incident_id.token"/>
+                            </t>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <section
+                                class="s_website_form o_incident_container_border"
+                                data-vcss="001"
+                                data-snippet="s_website_form"
+                        >
+                            <div class="col-12 col-xl order-xl-1">
+                                <div>
+                                    <form
+                                            id="incident_form_details"
+                                            action="/website/form/"
+                                            method="post"
+                                            enctype="multipart/form-data"
+                                            class="o_mark_required s_website_form_no_recaptcha"
+                                            data-mark="*"
+                                            data-model_name="incident.register"
+                                            data-force_action="incident.register.report"
+                                            data-success-mode="redirect"
+                                            data-success-page="/incident/success?str=involved"
+                                            hide-change-model="true"
+                                    >
+                                        <div class="s_website_form_rows row s_col_no_bgcolor">
+                                            <div
+                                                    class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                                    data-type="char"
+                                                    data-name="Field"
+                                            >
+                                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                    <input type="hidden" name="token" t-att-value="token"/>
+                                                    <div class="col-sm">
+                                                        <label
+                                                                class="col-form-label col-sm-auto s_website_form_label"
+                                                                for="date_received"
+                                                        >
+                                                            <span class="s_website_form_label_content">
+                                                                Date Of Incident:
+                                                            </span>
+                                                            <span class="s_website_form_mark">*</span>
+                                                        </label>
+                                                        <div
+                                                                class="s_website_form_datetime input-group date"
+                                                        >
+                                                            <input
+                                                                    type="text"
+                                                                    class="form-control datetimepicker-input s_website_form_input"
+                                                                    id="date_received"
+                                                                    required=""
+                                                                    placeholder='DD/MM/YYYY'
+                                                                    autocomplete="off"
+                                                                    name="date_received"
+                                                                    data-toggle="datetimepicker"
+                                                                    data-date-format="DD/MM/YYYY"
+                                                                    t-attf-data-target="#date_received"
+                                                                    t-att-value="checkout.get('date_received')"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm">
+                                                        <label
+                                                                class="col-form-label col-sm-auto s_website_form_label"
+                                                                for="time_of_incident"
+                                                        >
+                                                            <span class="s_website_form_label_content">
+                                                                Time Of Incident:
+                                                            </span>
+                                                            <span class="s_website_form_mark">*</span>
+                                                        </label>
+                                                        <input
+                                                                class="form-control s_website_form_input"
+                                                                id="time_of_incident"
+                                                                type="time"
+                                                                required=""
+                                                                placeholder='HH:MM'
+                                                                name="time_of_incident"
+                                                                data-time-format="hh:mm A"
+                                                                t-attf-data-target="#time_of_incident"
+                                                                autocomplete="off"
+                                                                t-att-value="checkout.get('time_of_incident')"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div
+                                                    class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                                    data-type="char"
+                                                    data-name="Field"
+                                            >
+                                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                    <div class="col-sm">
+                                                        <label
+                                                                class="col-form-label col-sm-auto s_website_form_label"
+                                                                for="date_first"
+                                                        >
+                                                            <span class="s_website_form_label_content">
+                                                                Date first told you about the incident (if
+                                                                applicable):
+                                                            </span>
+                                                            <span class="s_website_form_mark">*</span>
+                                                        </label>
+                                                        <div
+                                                                class="s_website_form_datetime input-group date"
+                                                        >
+                                                            <input
+                                                                    type="text"
+                                                                    class="form-control datetimepicker-input s_website_form_input"
+                                                                    id="date_first"
+                                                                    required=""
+                                                                    placeholder='DD/MM/YYYY'
+                                                                    autocomplete="off"
+                                                                    name="date_first"
+                                                                    data-toggle="datetimepicker"
+                                                                    data-date-format="DD/MM/YYYY"
+                                                                    t-attf-data-target="#date_first"
+                                                                    t-att-value="checkout.get('date_first')"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm">
+                                                        <label
+                                                                class="col-form-label col-sm-auto s_website_form_label"
+                                                                for="time_first_incident"
+                                                        >
+                                                            <span class="s_website_form_label_content">
+                                                                Time first told you about the
+                                                                incident (if applicable):
+                                                            </span>
+                                                            <span class="s_website_form_mark">*</span>
+                                                        </label>
+
+                                                        <input
+                                                                class="form-control s_website_form_input"
+                                                                id="time_first_incident"
+                                                                type="time"
+                                                                required=""
+                                                                placeholder='HH:MM'
+                                                                name="time_first_incident"
+                                                                data-time-format="hh:mm"
+                                                                t-attf-data-target="#timepicker_1234567"
+                                                                autocomplete="off"
+                                                                t-att-value="checkout.get('time_first_incident')"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div
+                                                    class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                                    data-type="char"
+                                                    data-name="Field"
+                                            >
+                                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                    <div class="col-sm">
+                                                        <label
+                                                                class="col-form-label col-sm-auto s_website_form_label"
+                                                                for="incident_type"
+                                                        >
+                                                            <span class="s_website_form_label_content">
+                                                                Incident Type:
+                                                            </span>
+                                                            <span class="s_website_form_mark">*</span>
+                                                        </label>
+                                                        <div style="padding-left: 6rem;">
+                                                            <div
+                                                                    t-foreach='incident_type'
+                                                                    t-as='label'
+                                                                    style="display:block"
+                                                            >
+                                                                <label>
+                                                                    <input
+                                                                            type="checkbox"
+                                                                            required=""
+                                                                            t-att-name="'%s_%s' % ('prefix', label.id)"
+                                                                            t-att-value='label.id'
+                                                                    />
+                                                                    <span t-field='label.name'/>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm">
+                                                        <label
+                                                                class="col-form-label col-sm-auto s_website_form_label"
+                                                                for="address"
+                                                        >
+                                                            <span class="s_website_form_label_content">
+                                                                Address:
+                                                            </span>
+                                                            <span class="s_website_form_mark">*</span>
+                                                        </label>
+
+                                                        <textarea
+                                                                id="address"
+                                                                type="text"
+                                                                rows="5"
+                                                                required=""
+                                                                class="form-control s_website_form_input"
+                                                                name="address"
+                                                                data-fill-with="address"
+                                                        ><t t-esc="checkout.get('address')"/></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="s_website_form_submit">
+                                                <a
+                                                        role="button"
+                                                        t-att-href="'/incident/register/%s' % (incident_id.token)"
+                                                        class="btn btn-secondary mb32 mt8 d-xl-inline-block"
+                                                        data-oe-model="ir.ui.view"
+                                                >
+                                                    <span class="fa fa-chevron-left"/>
+                                                    <span class="">Back</span>
+                                                </a>
+                                                <div class="justify-content-between mt8 float-end">
+                                                    <a
+                                                            role="button"
+                                                            href="#"
+                                                            class="btn btn-primary mb32 s_website_form_send"
+                                                    >
+                                                        <span>Next</span>
+                                                        <i class="fa fa-chevron-right"/>
+                                                    </a>
+                                                </div>
+                                                <div class="float-end" style="margin-top: 12px; margin-right:2px;">
+                                                    <span id="s_website_form_result"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="incident_involved_template" name="Incident Involved Template">
+        <!--        <t t-set="no_footer" t-value="1" />-->
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="container oe_website_sale py-2">
+                    <div class="row">
+                        <div class="col-12">
+                            <t
+                                    t-call="mysisco_incident_register.wizard_incident_register"
+                            >
+                                <t t-set="step" t-value="25"/>
+                                <t t-set="token" t-value="incident_id.token"/>
+                            </t>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <section
+                                class="s_website_form o_incident_container_border"
+                                data-vcss="001"
+                                data-snippet="s_website_form"
+                        >
+                            <div class="col-12 col-xl order-xl-1">
+                                <div>
+                                    <form
+                                            id="incident_form_details"
+                                            action="/website/form/"
+                                            method="post"
+                                            enctype="multipart/form-data"
+                                            class="o_mark_required s_website_form_no_recaptcha"
+                                            data-mark="*"
+                                            data-model_name="incident.register"
+                                            data-force_action="incident.register.report"
+                                            data-success-mode="redirect"
+                                            data-success-page="/incident/success?str=background"
+                                            hide-change-model="true"
+                                    >
+                                        <div
+                                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                                data-type="char"
+                                                data-name="Field"
+                                        >
+                                            <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                <input type="hidden" name="token" t-att-value="token"/>
+                                                <div class="col-sm">
+                                                    <label
+                                                            class="col-form-label col-sm-auto s_website_form_label"
+                                                            for="full_name"
+                                                    >
+                                                        <span class="s_website_form_label_content">
+                                                            Full Name:
+                                                        </span>
+                                                        <span class="s_website_form_mark">*</span>
+                                                    </label>
+
+                                                    <input
+                                                            id="full_name"
+                                                            type="test"
+                                                            class="form-control s_website_form_input"
+                                                            required=""
+                                                            name="full_name"
+                                                            data-fill-with="full_name"
+                                                            t-att-value="checkout.get('full_name')"
+                                                    />
+                                                </div>
+                                                <div class="col-sm">
+                                                    <label
+                                                            class="col-form-label col-sm-auto s_website_form_label"
+                                                            for="date_of_birth"
+                                                    >
+                                                        <span class="s_website_form_label_content">
+                                                            Date Of Birth:
+                                                        </span>
+                                                        <span class="s_website_form_mark">*</span>
+                                                    </label>
+                                                    <div
+                                                            class="s_website_form_datetime input-group date"
+                                                    >
+                                                        <input
+                                                                type="text"
+                                                                class="form-control datetimepicker-input s_website_form_input"
+                                                                id="date_of_birth"
+                                                                required=""
+                                                                 autocomplete="off"
+                                                                placeholder='DD/MM/YYYY'
+                                                                name="date_of_birth"
+                                                                data-toggle="datetimepicker"
+                                                                data-date-format="DD/MM/YYYY"
+                                                                t-attf-data-target="#date_of_birth"
+                                                                max="2023-05-20"
+                                                                t-att-value="checkout.get('date_of_birth')"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div
+                                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                                data-type="char"
+                                                data-name="Field"
+                                        >
+                                            <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                <div class="col-sm">
+                                                    <label
+                                                            class="col-form-label col-sm-auto s_website_form_label"
+                                                            for="participant_address"
+                                                    >
+                                                        <span class="s_website_form_label_content">
+                                                            Address:
+                                                        </span>
+                                                        <span class="s_website_form_mark">*</span>
+                                                    </label>
+
+                                                    <input
+                                                            id="participant_address"
+                                                            type="text"
+                                                            required=""
+                                                            class="form-control s_website_form_input"
+                                                            name="participant_address"
+                                                            data-fill-with="participant_address"
+                                                            t-att-value="checkout.get('participant_address')"
+                                                    />
+                                                </div>
+                                                <div class="col-sm">
+                                                    <label
+                                                            class="col-form-label col-sm-auto s_website_form_label"
+                                                            for="involved_witness"
+                                                    >
+                                                        <span class="s_website_form_label_content">
+                                                            Involved/Witness
+                                                        </span>
+                                                        <span class="s_website_form_mark">*</span>
+                                                    </label>
+                                                    <input
+                                                            id="involved_witness"
+                                                            type="text"
+                                                            required=""
+                                                            class="form-control s_website_form_input"
+                                                            name="involved_witness"
+                                                            data-fill-with="involved_witness"
+                                                            t-att-value="checkout.get('involved_witness')"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div
+                                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                                data-type="char"
+                                                data-name="Field"
+                                        >
+                                            <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                <div class="col-sm">
+                                                    <label
+                                                            class="col-form-label col-sm-auto s_website_form_label"
+                                                            for="injured"
+                                                    >
+                                                        <span class="s_website_form_label_content">
+                                                            Injured ?
+                                                        </span>
+                                                        <span class="s_website_form_mark">*</span>
+                                                    </label>
+                                                    <select
+                                                            id="injured"
+                                                            name="injured"
+                                                            required=""
+                                                            class="form-control s_website_form_input"
+                                                            t-att-value="injured"
+                                                    >
+                                                        <option value="yes">Yes</option>
+                                                        <option value="no">No</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm">
+                                                    <label
+                                                            class="col-form-label col-sm-auto s_website_form_label"
+                                                            for="medical_attention_required"
+                                                    >
+                                                        <span class="s_website_form_label_content">
+                                                            Medical Attention required?
+                                                        </span>
+                                                        <span class="s_website_form_mark">*</span>
+                                                    </label>
+                                                    <select
+                                                            id="medical_attention_required"
+                                                            required=""
+                                                            name="medical_attention_required"
+                                                            class="form-control s_website_form_input"
+                                                            t-att-value="medical_attention_required"
+                                                    >
+                                                        <option value="yes">Yes</option>
+                                                        <option value="no">No</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <h2 class="o_page_header mt8">Staff/Carer or Others: details</h2>
+
+                                        <div
+                                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                                data-type="char"
+                                                data-name="Field"
+                                        >
+                                            <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                <div class="col-sm">
+                                                    <label
+                                                            class="col-form-label col-sm-auto s_website_form_label"
+                                                            for="staff_full_name"
+                                                    >
+                                                        <span class="s_website_form_label_content">
+                                                            Full Name:
+                                                        </span>
+                                                        <span class="s_website_form_mark">*</span>
+                                                    </label>
+                                                    <input
+                                                            id="staff_full_name"
+                                                            type="text"
+                                                            required=""
+                                                            class="form-control s_website_form_input"
+                                                            name="staff_full_name"
+                                                            data-fill-with="staff_full_name"
+                                                            t-att-value="checkout.get('staff_full_name')"
+                                                    />
+                                                </div>
+                                                <div class="col-sm">
+
+                                                    <label
+                                                            class="col-form-label col-sm-auto s_website_form_label"
+                                                            for="staff_address"
+                                                    >
+                                                        <span class="s_website_form_label_content">
+                                                            Address:
+                                                        </span>
+                                                        <span class="s_website_form_mark">*</span>
+                                                    </label>
+                                                    <input
+                                                            id="staff_address"
+                                                            type="text"
+                                                            required=""
+                                                            class="form-control s_website_form_input"
+                                                            name="staff_address"
+                                                            data-fill-with="staff_address"
+                                                            t-att-value="checkout.get('staff_address')"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div
+                                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                                data-type="char"
+                                                data-name="Field"
+                                        >
+                                            <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                <div class="col-sm">
+                                                    <label
+                                                            class="col-form-label col-sm-auto s_website_form_label"
+                                                            for="feedback_participat"
+                                                    >
+                                                        <span class="s_website_form_label_content">
+                                                            Staff/Other:
+                                                        </span>
+                                                        <span class="s_website_form_mark">*</span>
+                                                    </label>
+                                                    <select
+                                                            id="feedback_participat"
+                                                            name="staff_other"
+                                                            required=""
+                                                            class="form-control s_website_form_input"
+                                                    >
+                                                        <option value="staff">Staff</option>
+                                                        <option value="carer">Carer</option>
+                                                        <option value="other">Other</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm">
+                                                    <label
+                                                            class="col-form-label col-sm-auto s_website_form_label"
+                                                            for="staff_involved_witness"
+                                                    >
+                                                        <span class="s_website_form_label_content">
+                                                            Involved/Witness
+                                                        </span>
+                                                        <span class="s_website_form_mark">*</span>
+                                                    </label>
+                                                    <input
+                                                            id="staff_involved_witness"
+                                                            type="text"
+                                                            required=""
+                                                            class="form-control s_website_form_input"
+                                                            name="staff_involved_witness"
+                                                            data-fill-with="staff_involved_witness"
+                                                            t-att-value="checkout.get('staff_involved_witness')"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div
+                                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                                data-type="char"
+                                                data-name="Field"
+                                        >
+                                            <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                <div class="col-sm-6">
+                                                    <label
+                                                            class="col-form-label col-sm-auto s_website_form_label"
+                                                            for="staff_injured"
+                                                    >
+                                                        <span class="s_website_form_label_content">
+                                                            Injured ?
+                                                        </span>
+                                                        <span class="s_website_form_mark">*</span>
+                                                    </label>
+                                                    <select
+                                                            id="staff_injured"
+                                                            name="staff_injured"
+                                                            required=""
+                                                            class="form-control s_website_form_input"
+                                                            t-att-value="staff_injured"
+                                                    >
+                                                        <option value="yes">Yes</option>
+                                                        <option value="no">No</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="s_website_form_submit">
+                                            <a
+                                                    role="button"
+                                                    t-att-href="'/incident/details/%s' % (incident_id.token)"
+                                                    class="btn btn-secondary mb32 mt8 d-xl-inline-block"
+                                                    data-oe-model="ir.ui.view"
+                                            >
+                                                <span class="fa fa-chevron-left"/>
+                                                <span class="">Back</span>
+                                            </a>
+                                            <div class="justify-content-between mt8 float-end">
+                                                <a
+                                                        role="button"
+                                                        href="#"
+                                                        class="btn btn-primary mb32 s_website_form_send"
+                                                >
+                                                    <span>Next</span>
+                                                    <i class="fa fa-chevron-right"/>
+                                                </a>
+                                            </div>
+                                            <div class="float-end" style="margin-top: 12px; margin-right:2px;">
+                                                <span id="s_website_form_result"/>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="incident_background_template" name="Incident Background Template">
+        <!--        <t t-set="no_footer" t-value="1" />-->
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="container oe_website_sale py-2">
+                    <div class="row">
+                        <div class="col-12">
+                            <t
+                                    t-call="mysisco_incident_register.wizard_incident_register"
+                            >
+                                <t t-set="step" t-value="35"/>
+                                <t t-set="token" t-value="incident_id.token"/>
+                            </t>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <section
+                                class="s_website_form o_incident_container_border"
+                                data-vcss="001"
+                                data-snippet="s_website_form"
+                        >
+                            <div class="col-12 col-xl order-xl-1">
+                                <div>
+                                    <form
+                                            id="incident_form_details"
+                                            action="/website/form/"
+                                            method="post"
+                                            enctype="multipart/form-data"
+                                            class="o_mark_required s_website_form_no_recaptcha"
+                                            data-mark="*"
+                                            data-model_name="incident.register"
+                                            data-force_action="incident.register.report"
+                                            data-success-mode="redirect"
+                                            data-success-page="/incident/success?str=happened"
+                                            hide-change-model="true"
+                                    >
+                                        <div
+                                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                                data-type="char"
+                                                data-name="Field"
+                                        >
+                                            <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                <input type="hidden" name="token" t-att-value="token"/>
+                                                <div class="col-sm">
+
+                                                    <label
+                                                            class="col-form-label col-sm-auto s_website_form_label"
+                                                            for="before_incident"
+                                                    >
+                                                        <span class="s_website_form_label_content">
+                                                            (eg. What was client doing before
+                                                            incident) ?
+                                                        </span>
+                                                        <span class="s_website_form_mark">*</span>
+                                                    </label>
+                                                    <textarea
+                                                            id="before_incident"
+                                                            type="text"
+                                                            required=""
+                                                            rows="5"
+                                                            class="form-control s_website_form_input o_incident_address"
+                                                            name="before_incident"
+                                                            data-fill-with="before_incident"
+                                                    ><t t-esc="checkout.get('before_incident')"/></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="s_website_form_submit">
+                                            <a
+                                                    role="button"
+                                                    t-att-href="'/incident/involved/%s' % (incident_id.token)"
+                                                    class="btn btn-secondary mb32 mt8 d-xl-inline-block"
+                                                    data-oe-model="ir.ui.view"
+                                            >
+                                                <span class="fa fa-chevron-left"/>
+                                                <span class="">Back</span>
+                                            </a>
+                                            <div class="justify-content-between mt8 float-end">
+                                                <a
+                                                        role="button"
+                                                        href="#"
+                                                        class="btn btn-primary mb32 s_website_form_send"
+                                                >
+                                                    <span>Next</span>
+                                                    <i class="fa fa-chevron-right"/>
+                                                </a>
+                                            </div>
+                                            <div class="float-end" style="margin-top: 12px; margin-right:2px;">
+                                                <span id="s_website_form_result"/>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="incident_happened_template" name="Incident Happened Template">
+        <!--        <t t-set="no_footer" t-value="1" />-->
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="container oe_website_sale py-2">
+                    <div class="row">
+                        <div class="col-12">
+                            <t
+                                    t-call="mysisco_incident_register.wizard_incident_register"
+                            >
+                                <t t-set="step" t-value="40"/>
+                                <t t-set="token" t-value="incident_id.token"/>
+                            </t>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <section
+                                class="s_website_form o_incident_container_border"
+                                data-vcss="001"
+                                data-snippet="s_website_form"
+                        >
+                            <div class="col-12 col-xl order-xl-1">
+                                <div>
+                                    <form
+                                            id="incident_form_details"
+                                            action="/website/form/"
+                                            method="post"
+                                            enctype="multipart/form-data"
+                                            class="o_mark_required s_website_form_no_recaptcha"
+                                            data-mark="*"
+                                            data-model_name="incident.register"
+                                            data-force_action="incident.register.report"
+                                            data-success-mode="redirect"
+                                            data-success-page="/incident/success?str=thank-you"
+                                            hide-change-model="true"
+                                    >
+                                        <div
+                                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                                data-type="char"
+                                                data-name="Field"
+                                        >
+                                            <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                <div class="col-sm">
+
+                                                    <label
+                                                            class="col-form-label col-sm-auto s_website_form_label"
+                                                            for="manager_name"
+                                                    >
+                                                        <span class="s_website_form_label_content">
+                                                            Manager’s name:
+                                                        </span>
+                                                        <span class="s_website_form_mark">*</span>
+                                                    </label>
+                                                    <input
+                                                            id="manager_name"
+                                                            type="text"
+                                                            required=""
+                                                            class="form-control s_website_form_input"
+                                                            name="manager_name"
+                                                            data-fill-with="manager_name"
+                                                            t-att-value="checkout.get('manager_name')"
+                                                    />
+                                                </div>
+                                                <div class="col-sm">
+                                                    <label
+                                                            class="col-form-label col-sm-auto s_website_form_label"
+                                                            for="incident_reported"
+                                                    >
+                                                        <span class="s_website_form_label_content">
+                                                            Incident reported to the Line Manager?
+                                                        </span>
+                                                        <span class="s_website_form_mark">*</span>
+                                                    </label>
+                                                    <select
+                                                            id="incident_reported"
+                                                            name="incident_reported"
+                                                            required=""
+                                                            class="form-control s_website_form_input"
+                                                            t-att-value="incident_reported"
+                                                    >
+                                                        <option value="yes">Yes</option>
+                                                        <option value="no">No</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div
+                                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                                data-type="char"
+                                                data-name="Field"
+                                        >
+                                            <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                <div class="col-sm">
+                                                    <label
+                                                            class="col-form-label col-sm-auto s_website_form_label"
+                                                            for="damaged_property"
+                                                    >
+                                                        <span class="s_website_form_label_content">
+                                                            Was any property or equipment
+                                                            damaged?
+                                                        </span>
+                                                        <span class="s_website_form_mark">*</span>
+                                                    </label>
+                                                    <select
+                                                            id="damaged_property"
+                                                            name="damaged_property"
+                                                            required=""
+                                                            class="form-control s_website_form_input"
+                                                            t-att-value="damaged_property"
+                                                    >
+                                                        <option value="yes">Yes</option>
+                                                        <option value="no">No</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm">
+
+                                                    <label
+                                                            class="col-form-label col-sm-auto s_website_form_label"
+                                                            for="contacted_police"
+                                                    >
+                                                        <span class="s_website_form_label_content">
+                                                            Police Contacted?
+                                                        </span>
+                                                        <span class="s_website_form_mark">*</span>
+                                                    </label>
+                                                    <select
+                                                            id="contacted_police"
+                                                            name="contacted_police"
+                                                            required=""
+                                                            class="form-control s_website_form_input"
+                                                            t-att-value="contacted_police"
+                                                    >
+                                                        <option value="yes">Yes</option>
+                                                        <option value="no">No</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div
+                                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                                data-type="char"
+                                                data-name="Field"
+                                        >
+                                            <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                <div class="col-sm">
+                                                    <label
+                                                            class="col-form-label col-sm-auto s_website_form_label"
+                                                            for="date_123459"
+                                                    >
+                                                        <span class="s_website_form_label_content">
+                                                            Date:
+                                                        </span>
+                                                        <span class="s_website_form_mark">*</span>
+                                                    </label>
+                                                    <div
+                                                            class="s_website_form_datetime input-group date"
+                                                    >
+                                                        <input
+                                                                type="text"
+                                                                class="form-control datetimepicker-input s_website_form_input"
+                                                                id="date_123459"
+                                                                placeholder='DD/MM/YYYY'
+                                                                name="date"
+                                                                required=""
+                                                                data-toggle="datetimepicker"
+                                                                data-date-format="DD/MM/YYYY"
+                                                                t-attf-data-target="#date_123459"
+                                                                t-att-value="checkout.get('date')"
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm">
+                                                    <label
+                                                            class="col-form-label col-sm-auto s_website_form_label"
+                                                            for="attachment"
+                                                    >
+                                                        <span class="s_website_form_label_content">
+                                                            Attachment
+                                                        </span>
+                                                        <span class="s_website_form_mark">*</span>
+                                                    </label>
+                                                    <input
+                                                            id="attachment"
+                                                            type="text"
+                                                            required=""
+                                                            class="form-control s_website_form_input"
+                                                            name="attachment"
+                                                            data-fill-with="attachment"
+                                                            placeholder="Attachments attached in section 5 to be displayed here"
+                                                            t-att-value="checkout.get('attachment')"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div
+                                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                                data-type="char"
+                                                data-name="Field"
+                                        >
+                                            <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                <input type="hidden" name="token" t-att-value="token"/>
+                                                <div class="col-sm">
+
+                                                    <label
+                                                            class="col-form-label col-sm-auto s_website_form_label"
+                                                            for="description"
+                                                    >
+                                                        <span class="s_website_form_label_content">
+                                                            Incident Description:
+                                                        </span>
+                                                        <span class="s_website_form_mark">*</span>
+                                                    </label>
+                                                    <textarea
+                                                            id="description"
+                                                            type="text"
+                                                            required=""
+                                                            rows="5"
+                                                            class="form-control s_website_form_input o_incident_address"
+                                                            name="description"
+                                                            data-fill-with="description"
+                                                    ><t t-esc="checkout.get('description')"/></textarea>
+                                                </div>
+                                                <div class="col-sm">
+                                                    <label
+                                                            class="col-form-label col-sm-auto s_website_form_label"
+                                                            for="immediate_action"
+                                                    >
+                                                        <span class="s_website_form_label_content">
+                                                            Immediate action taken by Staff:
+                                                        </span>
+                                                        <span class="s_website_form_mark">*</span>
+                                                    </label>
+                                                    <textarea
+                                                            id="immediate_action"
+                                                            type="text"
+                                                            required=""
+                                                            rows="5"
+                                                            class="form-control s_website_form_input o_incident_address"
+                                                            name="immediate_action"
+                                                            data-fill-with="immediate_action"
+                                                    ><t t-esc="checkout.get('immediate_action')"/></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div
+                                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                                data-type="char"
+                                                data-name="Field"
+                                        >
+                                            <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                <div class="col-sm">
+                                                    <label
+                                                            class="col-form-label col-sm-auto s_website_form_label"
+                                                            for="details"
+                                                    >
+                                                        <span class="s_website_form_label_content">
+                                                            Details of Damage (if Applicable):
+                                                        </span>
+                                                        <span class="s_website_form_mark">*</span>
+                                                    </label>
+                                                    <textarea
+                                                            id="details"
+                                                            required=""
+                                                            rows="5"
+                                                            type="text"
+                                                            class="form-control s_website_form_input o_incident_address"
+                                                            name="details"
+                                                            data-fill-with="details"
+                                                   ><t t-esc="checkout.get('details')"/></textarea>
+                                                </div>
+                                                <div class="col-sm">
+
+                                                    <label
+                                                            class="col-form-label col-sm-auto s_website_form_label"
+                                                            for="signature"
+                                                    >
+                                                        <span class="s_website_form_label_content">
+                                                            Reporter's Signature
+                                                        </span>
+                                                        <span class="s_website_form_mark">*</span>
+                                                    </label>
+                                                    <input
+                                                            id="signature"
+                                                            type="text"
+                                                            required=""
+                                                            class="form-control s_website_form_input"
+                                                            name="signature"
+                                                            data-fill-with="signature"
+                                                            placeholder="TESTSIGN"
+                                                            t-att-value="checkout.get('signature')"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div
+                                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                                data-type="char"
+                                                data-name="Field"
+                                        >
+                                            <div class="row s_col_no_resize s_col_no_bgcolor">
+
+                                            </div>
+                                        </div>
+                                        <div class="s_website_form_submit">
+                                            <a
+                                                    role="button"
+                                                    t-att-href="'/incident/background/%s' % (incident_id.token)"
+                                                    class="btn btn-secondary mb32 mt8 d-xl-inline-block"
+                                                    data-oe-model="ir.ui.view"
+                                            >
+                                                <span class="fa fa-chevron-left"/>
+                                                <span class="">Back</span>
+                                            </a>
+                                            <div class="justify-content-between mt8 float-end">
+                                                <a
+                                                        role="button"
+                                                        href="#"
+                                                        class="btn btn-primary mb32 s_website_form_send"
+                                                >
+                                                    <span>Next</span>
+                                                    <i class="fa fa-chevron-right"/>
+                                                </a>
+                                            </div>
+                                            <div class="float-end" style="margin-top: 12px; margin-right:2px;">
+                                                <span id="s_website_form_result"/>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+</odoo>

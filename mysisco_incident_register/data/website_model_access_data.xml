@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="model_incident_register" model="ir.model">
+        <field name="website_form_key">send_incident</field>
+        <field name="website_form_access">True</field>
+        <field name="website_form_label">Send an Incident</field>
+    </record>
+    <function model="ir.model.fields" name="formbuilder_whitelist">
+        <value>incident.register</value>
+        <value
+            eval="[
+                'name',
+                'partner_id',
+                'partner_name',
+                'contact_number',
+                'position',
+                'incident_number',
+                'city',
+                'date_received',
+                'time_of_incident',
+                'incident_type',
+                'address',
+                'date_first',
+                'time_first_incident',
+                'type_of_reportable',
+                'full_name',
+                'date_of_birth',
+                'participant_address',
+                'involved_witness',
+                'injured',
+                'medical_attention_required',
+                'staff_full_name',
+                'staff_address',
+                'staff_other',
+                'staff_involved_witness',
+                'staff_injured',
+                'staff_medical_attention_required',
+                'before_incident',
+                'description',
+                'immediate_action',
+                'damaged_property',
+                'contacted_police',
+                'details',
+                'incident_reported',
+                'date',
+                'attachment',
+                'signature',
+                'manager_name',
+                'phone',
+                'manager_position',
+                'what_action_taken',
+                'informed_date',
+                'informed_time',
+                'type_of_reportable',
+                'feedback_participat',
+                'investigation_possible_causes',
+                'investigation_findings',
+                'outcome_action',
+                'investigation_actions',
+                'investigation_action_date',
+                'investigation_desc',
+                'comments',
+                'closed_date',
+                'process_improvement',
+                'status',
+                'immediate_action',
+                'feedback_attachment',
+            ]"
+        />
+    </function>
+</odoo>

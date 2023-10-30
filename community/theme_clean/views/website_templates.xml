@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<template id="header_booking" inherit_id="website.header_call_to_action" name="Booking Demo Button" active="True">
+    <xpath expr="//div[hasclass('container')]" position="replace">
+
+        <a t-if="request.env.user._is_public()" href="/appointment" class="btn btn-primary btn_cta">Book Demo</a>
+    </xpath>
+</template>
+</odoo>

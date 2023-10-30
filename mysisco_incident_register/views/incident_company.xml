@@ -1,0 +1,51 @@
+<odoo>
+
+    <record id="view_incident_company_action_form" model="ir.actions.act_window">
+        <field name="name">Companies</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">incident.register.partner</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('user_id', '!=', uid),('is_company', '=', True)]</field>
+        <field name="context">{'default_is_company' : True, 'search_default_group_company_partner' : 1,'search_default_group_incident_role' : 1}</field>
+        <field name="view_id" ref="incident_register_partner_tree_view"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a Incident Register Company in your book.
+            </p>
+            <p>Odoo helps you track all activities related to your company.</p>
+        </field>
+    </record>
+
+    <record id="create_incident_company_action_form" model="ir.actions.act_window">
+        <field name="name">Companies</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">incident.register.partner</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('user_id', '!=', uid),('is_company', '=', True)]</field>
+        <field name="context">{'default_is_company' : True}</field>
+        <field name="view_id" ref="incident_register_partner_form_view"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a Incident Register Company in your book.
+            </p>
+            <p>Odoo helps you track all activities related to your company.</p>
+        </field>
+    </record>
+
+    <record id="create_another_incident_company_action_form" model="ir.actions.act_window">
+        <field name="name">Another Companies</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">incident.register.partner</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('user_id', '!=', uid),('is_company', '=', True)]</field>
+        <field name="context">{'default_is_company' : True}</field>
+        <field name="view_id" ref="incident_register_partner_form_view"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a Incident Register Company in your book.
+            </p>
+            <p>Odoo helps you track all activities related to your contacts.</p>
+        </field>
+    </record>
+
+</odoo>

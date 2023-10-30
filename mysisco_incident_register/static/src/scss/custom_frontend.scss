@@ -1,0 +1,19 @@
+.center {
+    line-height: 2.7rem;
+    height: 2rem;
+    text-align: center;
+}
+
+.center p {
+    line-height: 1.5;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.center svg {
+    vertical-align: middle;
+    padding-bottom: 1px;
+    margin-bottom: 14px;
+    margin-left: 15px;
+    height: 1em;
+}

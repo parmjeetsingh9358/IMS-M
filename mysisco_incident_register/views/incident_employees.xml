@@ -1,0 +1,246 @@
+<odoo>
+
+    <record model="ir.ui.view" id="incident_register_partner_tree_view">
+        <field name="name">incident.register.partner.tree</field>
+        <field name="model">incident.register.partner</field>
+        <field name="arch" type="xml">
+            <tree create="false">
+                <field name="title" optional="hide"/>
+                <field name="name"/>
+                <field name="email"/>
+                <field name="phone"/>
+                <field name="website"/>
+                <field name="function" optional="hide"/>
+                <field name="company_partner_id" optional="hide" />
+                <field name="incident_role_id" optional="hide" />
+                <field name="manager_id" optional="hide" />
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="incident_register_partner_form_view">
+        <field name="name">incident.register.partner.form</field>
+        <field name="model">incident.register.partner</field>
+        <field name="arch" type="xml">
+            <form string="Incident Register Partner">
+                <header>
+                    <button
+                            name="sending_invitation"
+                            string="Sending Invitation"
+                            attrs="{'invisible': [('state', '!=', 'draft')] }"
+                            type="object"
+                    />
+                    <button
+                            name="revoke_invitation"
+                            string="Revoke Invitation"
+                            attrs="{'invisible': [('state', '!=', 'posted')] }"
+                            type="object"
+                    />
+                    <button
+                            name="resend_invitation"
+                            string="Resend Invitation"
+                            attrs="{'invisible': [('state', '!=', 'posted')] }"
+                            type="object"
+                    />
+                    <field name="state" widget="statusbar" statusbar_visible="draft,posted"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_open_manager" type="object" class="oe_stat_button" icon="fa-users" attrs="{'invisible': ['|',('manager_count','=',0),('manager_role','=',True)]}" groups="mysisco_incident_register.group_incident_register_super_admin">
+                            <div class="o_form_field o_stat_info">
+                                <span class="o_stat_text">
+                                    <field name="manager_count"/>
+                                    <span>
+                                        Manager
+                                    </span>
+                                </span>
+                            </div>
+                        </button>
+                        <button name="action_open_staff" type="object" class="oe_stat_button" icon="fa-users" attrs="{'invisible': [('staff_count','=',0)]}">
+                            <div class="o_form_field o_stat_info">
+                                <span class="o_stat_text">
+                                    <field name="staff_count"/>
+                                    <span>
+                                        Staff
+                                    </span>
+                                </span>
+                            </div>
+                        </button>
+                        <button name="action_open_location" type="object" class="oe_stat_button" icon="fa-users" attrs="{'invisible': [('location_count','=',0)]}" groups="mysisco_incident_register.group_incident_register_super_admin">
+                            <div class="o_form_field o_stat_info">
+                                <span class="o_stat_text">
+                                    <field name="location_count"/>
+                                    <span>
+                                        Location
+                                    </span>
+                                </span>
+                            </div>
+                        </button>
+                    </div>
+                    <field name="incident_image" widget="image" class="oe_avatar"/>
+                    <div class="oe_title mb24">
+                        <h1>
+                            <field name="name" placeholder="Name"/>
+                        </h1>
+                        <div class="o_row">
+                            <field name="is_company_create" invisible="1"/>
+                            <field name="is_company" invisible="1"/>
+                        </div>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="company_partner_id"
+                                   domain="[('is_company', '=', True)]"
+                                   context="{'default_is_company': True}"
+                                   attrs="{'invisible':[('is_company', '=', True)],'readonly':[('is_company_create', '=', True)],'required': [('is_company','=', False)]}"
+                                   options="{&quot;no_open&quot;: True, }"/>
+                            <field name="is_manager" invisible="1"/>
+                            <field name="manager_role" invisible="1"/>
+                            <field name="incident_role_id"
+                                   options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"
+                                   attrs="{'invisible':[('is_company', '=', True)],'required': [('is_company','=', False)]}"/>
+                            <label
+                                    for="street"
+                                    string="Address"
+                            />
+                            <div class="o_address_format" name="div_address">
+                                <field
+                                        name="street"
+                                        placeholder="Street..."
+                                        class="o_address_street"
+                                />
+                                <field
+                                        name="street2"
+                                        placeholder="Street 2..."
+                                        class="o_address_street"
+                                />
+                                <field
+                                        name="city"
+                                        placeholder="City"
+                                        class="o_address_city"
+                                />
+                                <field
+                                        name="state_id"
+                                        class="o_address_state"
+                                        placeholder="State"
+                                        options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"
+                                        context="{'country_id': country_id, 'default_country_id': country_id, 'zip': zip}"
+                                />
+                                <field
+                                        name="zip"
+                                        placeholder="ZIP"
+                                        class="o_address_zip"
+                                />
+                                <field
+                                        name="country_id"
+                                        placeholder="Country"
+                                        class="o_address_country"
+                                        options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"
+                                        context="{'search_specific_country': True}"
+                                />
+                            </div>
+                            <field name="function"/>
+                            <field name="partner_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="new_incident_role_id" invisible="1"/>
+                            <field name="manager_id"
+                                   domain="[('incident_role_id','=',new_incident_role_id),('state','=','posted')]"
+                                   attrs="{'invisible':['|',('is_company', '=', True),('manager_role', '!=', False)],'required': [('is_manager', '=', True)]}"
+                                   options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                            <field name="incident_city_ids" widget="many2many_tags"
+                                   attrs="{'invisible':[('is_company', '=', True)],'required': [('is_company', '=', False)]}"
+                                   domain="[('partner_id', '=', company_partner_id)]"
+                                   options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                            <field name="email" widget="email" required="1"/>
+                            <field name="phone" widget="phone"/>
+                            <field name="mobile" widget="phone"/>
+                            <field name="website" widget="url" placeholder="e.g. https://www.odoo.com"/>
+                            <field name="title" placeholder="Title" options='{"no_open": True}'/>
+                        </group>
+                    </group>
+                </sheet>
+<!--                                <div class="oe_chatter" groups="base.group_system">-->
+<!--                                    <field name="message_follower_ids" widget="mail_followers"/>-->
+<!--                                    <field name="message_ids" widget="mail_thread"/>-->
+<!--                                </div>-->
+
+            </form>
+        </field>
+    </record>
+
+    <record id="incident_register_partner_search_panel" model="ir.ui.view">
+        <field name="name">incident.register.partner.search.panel</field>
+        <field name="model">incident.register.partner</field>
+        <field name="arch" type="xml">
+            <search string="Employees">
+                <field name="name" string="Name"/>
+                <field name="company_partner_id" string="Companies"/>
+                <field name="state" string="Status"/>
+                <filter string="Pending" name="draft" domain="[('state','=','draft')]"/>
+                <filter string="Invited" name="posted" domain="[('state','=','posted')]"/>
+                <separator/>
+                <filter string="Date" name="create_date" date="create_date"/>
+                <group expand="0" string="Group By">
+                    <filter string="Status" name="group_status" context="{'group_by': 'state'}"/>
+                    <filter string="Employees" name="name" context="{'group_by': 'name'}"/>
+                    <filter string="Companies" name="group_company_partner" context="{'group_by': 'company_partner_id'}"/>
+                    <filter string="Date" name="create_date" context="{'group_by': 'create_date'}"/>
+                    <filter string="Incident Role" name="group_incident_role" context="{'group_by': 'incident_role_id'}"/>
+                </group>
+                <!--                <searchpanel>-->
+                <!--                    <field name="partner_id" groups="mysisco_incident_register.group_incident_register_super_admin"-->
+                <!--                           string="Company" icon="fa-building"/>-->
+                <!--                    <field name="incident_role_id" icon="fa-users" enable_counters="1"/>-->
+                <!--                </searchpanel>-->
+            </search>
+        </field>
+    </record>
+
+    <record id="view_incident_register_partner_action_form" model="ir.actions.act_window">
+        <field name="name">Employees</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">incident.register.partner</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('user_id', '!=', uid),('is_company', '=', False)]</field>
+        <field name="context">{'default_is_company' : True, 'search_default_group_incident_role' : 1}</field>
+        <field name="view_id" ref="incident_register_partner_tree_view"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a Incident Register Employees in your book.
+            </p>
+            <p>Odoo helps you track all activities related to your employees.</p>
+        </field>
+    </record>
+
+
+    <record id="create_incident_register_partner_action_form" model="ir.actions.act_window">
+        <field name="name">Employees</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">incident.register.partner</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('user_id', '!=', uid),('is_company', '=', False)]</field>
+        <field name="view_id" ref="incident_register_partner_form_view"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a Incident Register Employees in your book.
+            </p>
+            <p>Odoo helps you track all activities related to your employees.</p>
+        </field>
+    </record>
+
+
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='vat']" position="after">
+                <field name="business_name"/>
+                <field name="is_incident" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

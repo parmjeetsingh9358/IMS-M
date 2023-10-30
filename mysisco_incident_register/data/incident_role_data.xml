@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+        <!--  Type of Role: -->
+
+    <record id="incident_role_admin" model="incident.role">
+        <field name="name">Admin</field>
+    </record>
+    <record id="incident_role_manager" model="incident.role">
+        <field name="name">Manager</field>
+    </record>
+    <record id="incident_role_staff" model="incident.role">
+        <field name="name">Staff</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,26 @@
+<odoo>
+
+    <record id="resource_booking_view_calendar_inherit" model="ir.ui.view">
+        <field name="model">resource.booking</field>
+        <field name="type">calendar</field>
+        <field name="inherit_id" ref="resource_booking.resource_booking_view_calendar" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='description']" position="before">
+                <field name="business_name"/>
+            </xpath>
+        </field>
+    </record>
+
+        <record id="resource_booking_view_form_inherit" model="ir.ui.view">
+        <field name="model">resource.booking</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="resource_booking.resource_booking_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='categ_ids']" position="after">
+                <field name="business_name"/>
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+
+    <record id="incident_notification_type_not_applicable" model="notification.type.commission.incident">
+        <field name="name">Not Applicable</field>
+    </record>
+    <record id="incident_notification_type_death_participant" model="notification.type.commission.incident">
+        <field name="name">Death of a participant</field>
+    </record>
+    <record id="incident_notification_type_injury_participant" model="notification.type.commission.incident">
+        <field name="name">Serious injury of a participant</field>
+    </record>
+    <record id="incident_notification_type_neglect_participant" model="notification.type.commission.incident">
+        <field name="name">Abuse or neglect of a participant</field>
+    </record>
+    <record id="incident_notification_type_assault_participant" model="notification.type.commission.incident">
+        <field name="name">
+            Unlawful sexual or physical contact with, or assault of, a participant by a
+            worker or another NDIS participant
+        </field>
+    </record>
+    <record id="incident_notification_type_s_activity_participant" model="notification.type.commission.incident">
+        <field name="name">
+            Sexual misconduct committed against, or in the presence of, a
+            participant, including grooming of the participant for sexual activity.
+        </field>
+    </record>
+    <record id="incident_notification_type_restrictive_practices" model="notification.type.commission.incident">
+        <field name="name">Unauthorized use of restrictive practices.</field>
+    </record>
+</odoo>

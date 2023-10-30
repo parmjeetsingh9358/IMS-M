@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="mysisco_incidenrt_register_category" model="ir.module.category">
+        <field name="name">Incident Register</field>
+        <field name="description">
+            Helps you manage your incident register by tracking them, etc...
+        </field>
+        <field name="sequence">3</field>
+    </record>
+
+
+    <record id="group_incident_register_staff" model="res.groups">
+        <field name="name">Staff</field>
+        <field
+            name="category_id"
+            ref="mysisco_incident_register.mysisco_incidenrt_register_category"
+        />
+    </record>
+
+    <record id="group_incident_register_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field
+            name="implied_ids"
+            eval="[(4, ref('mysisco_incident_register.group_incident_register_staff'))]"
+        />
+        <field
+            name="category_id"
+            ref="mysisco_incident_register.mysisco_incidenrt_register_category"
+        />
+    </record>
+
+    <record id="group_incident_register_admin" model="res.groups">
+        <field name="name">Admin</field>
+        <field
+            name="category_id"
+            ref="mysisco_incident_register.mysisco_incidenrt_register_category"
+        />
+        <field
+            name="implied_ids"
+            eval="[(4, ref('mysisco_incident_register.group_incident_register_manager'))]"
+        />
+    </record>
+
+    <record id="group_incident_register_super_admin" model="res.groups">
+        <field name="name">Super Admin</field>
+        <field
+            name="category_id"
+            ref="mysisco_incident_register.mysisco_incidenrt_register_category"
+        />
+        <field
+            name="implied_ids"
+            eval="[(4, ref('mysisco_incident_register.group_incident_register_admin'))]"
+        />
+        <field
+            name="users"
+            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+        />
+    </record>
+
+    <data noupdate="0">
+        <record model="ir.rule" id="incident_register_comp_rule">
+            <field name="name">incident_register: multi-company</field>
+            <field
+                name="model_id"
+                ref="mysisco_incident_register.model_incident_register"
+            />
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record model="ir.rule" id="incident_register_manager_rule_super_admin">
+            <field name="name">
+                incident_register: incident register Super Admin see all
+            </field>
+            <field
+                name="model_id"
+                ref="mysisco_incident_register.model_incident_register"
+            />
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field
+                name="groups"
+                eval="[(4,ref('mysisco_incident_register.group_incident_register_super_admin'))]"
+            />
+        </record>
+
+        <record model="ir.rule" id="incident_register_manager_rule">
+            <field name="name">
+                incident_register: incident register manager: see all
+            </field>
+            <field
+                name="model_id"
+                ref="mysisco_incident_register.model_incident_register"
+            />
+            <field name="domain_force">['|', ('message_partner_ids.parent_id', 'child_of', [user.partner_id.id]), ('user_id', '=', user.id)]</field>
+            <field
+                name="groups"
+                eval="[(4,ref('mysisco_incident_register.group_incident_register_manager'))]"
+            />
+        </record>
+
+          <record model="ir.rule" id="incident_register_admin_rule">
+            <field name="name">
+                incident_register: incident register admin: see all
+            </field>
+            <field
+                name="model_id"
+                ref="mysisco_incident_register.model_incident_register"
+            />
+            <field name="domain_force">['|', ('message_partner_ids', 'child_of', [user.partner_id.id]), ('user_id', '=', user.id)]</field>
+            <field
+                name="groups"
+                eval="[(4,ref('mysisco_incident_register.group_incident_register_admin'))]"
+            />
+        </record>
+
+        <record model="ir.rule" id="incident_register_public_members_rule">
+            <field name="name">
+                incident_register: employees: following required for follower-only
+                incident_registers
+            </field>
+            <field
+                name="model_id"
+                ref="mysisco_incident_register.model_incident_register"
+            />
+            <field name="domain_force">
+                ['|',
+                ('privacy_visibility', '=', 'followers'),
+                ('message_partner_ids', 'in', [user.partner_id.id])
+                ]
+            </field>
+            <field
+                name="groups"
+                eval="[(4, ref('mysisco_incident_register.group_incident_register_staff'))]"
+            />
+        </record>
+
+        <!-- Portal -->
+        <record id="incident_register_rule_portal" model="ir.rule">
+            <field name="name">
+                incident_register: portal users: portal and following
+            </field>
+            <field
+                name="model_id"
+                ref="mysisco_incident_register.model_incident_register"
+            />
+            <field name="domain_force">
+                [
+                ('privacy_visibility', '=', 'portal'),
+                ('message_partner_ids', 'child_of', [user.partner_id.id]),
+                ]
+            </field>
+            <field name="perm_read" eval="True" />
+            <field name="perm_write" eval="False" />
+            <field name="perm_create" eval="False" />
+            <field name="perm_unlink" eval="False" />
+            <field name="groups" eval="[(4, ref('base.group_portal'))]" />
+        </record>
+
+        <record id="incident_register_collaborator_rule_portal" model="ir.rule">
+            <field name="name">
+                Register/Collaborator: portal users: can only see his own
+                collobaroration in shared
+                registers
+            </field>
+            <field
+                name="model_id"
+                ref="mysisco_incident_register.model_incident_register_collaborator"
+            />
+            <field name="domain_force">
+                [
+                ('register_id.privacy_visibility', '=', 'portal'),
+                ('partner_id', '=', user.partner_id.id),
+                ]
+            </field>
+            <field name="groups" eval="[(4, ref('base.group_portal'))]" />
+        </record>
+
+        <record
+            id="access_incident_register_sharing_task_portal"
+            model="ir.model.access"
+        >
+            <field name="name">incident_sharing_task_portal</field>
+            <field
+                name="model_id"
+                ref="mysisco_incident_register.model_incident_register"
+            />
+            <field name="group_id" ref="base.group_portal" />
+            <field name="active">1</field>
+            <field name="perm_read">1</field>
+            <field name="perm_write">1</field>
+            <field name="perm_create">1</field>
+            <field name="perm_unlink">0</field>
+        </record>
+
+        <record id="incident_register_partner_rule_manager" model="ir.rule">
+            <field name="name">
+                incident_register_partner: manager
+            </field>
+            <field
+                name="model_id"
+                ref="mysisco_incident_register.model_incident_register_partner"
+            />
+            <field name="domain_force">
+                [
+                '|',('manager_id.user_id', '=', user.id),('user_id','=',user.id)
+                ]
+            </field>
+            <field name="groups" eval="[(4, ref('mysisco_incident_register.group_incident_register_manager'))]" />
+        </record>
+
+
+        <record id="incident_register_partner_rule_admin" model="ir.rule">
+            <field name="name">
+                incident_register_partner: admin
+            </field>
+            <field
+                name="model_id"
+                ref="mysisco_incident_register.model_incident_register_partner"
+            />
+            <field name="domain_force">
+                [('company_partner_id', '=', user.partner_id.parent_id.id)]
+            </field>
+            <field name="groups" eval="[(4, ref('mysisco_incident_register.group_incident_register_admin'))]" />
+        </record>
+
+        <record id="incident_register_partner_rule_super_admin" model="ir.rule">
+            <field name="name">
+                incident_register_partner: Super admin
+            </field>
+            <field
+                name="model_id"
+                ref="mysisco_incident_register.model_incident_register_partner"
+            />
+            <field name="domain_force">
+                [
+                (1, '=', 1),
+                ]
+            </field>
+            <field name="groups" eval="[(4, ref('mysisco_incident_register.group_incident_register_super_admin'))]" />
+        </record>
+
+        <record id="incident_city_rule_super_admin" model="ir.rule">
+            <field name="name">
+                incident City: Super admin
+            </field>
+            <field
+                name="model_id"
+                ref="mysisco_incident_register.model_incident_city"
+            />
+            <field name="domain_force">
+                [
+                (1, '=', 1),
+                ]
+            </field>
+            <field name="groups" eval="[(4, ref('mysisco_incident_register.group_incident_register_super_admin'))]" />
+        </record>
+
+        <record id="incident_city_location_rule_admin" model="ir.rule">
+            <field name="name">
+                incident City: Super admin
+            </field>
+            <field
+                name="model_id"
+                ref="mysisco_incident_register.model_incident_city"
+            />
+            <field name="domain_force">
+                [('partner_id', '=', user.incident_partner_ids.company_partner_id.id)]
+            </field>
+            <field name="groups" eval="[(4, ref('mysisco_incident_register.group_incident_register_admin'))]" />
+        </record>
+
+        <record id="incident_city_rule_manager" model="ir.rule">
+            <field name="name">
+                incident City: Super Manager
+            </field>
+            <field
+                name="model_id"
+                ref="mysisco_incident_register.model_incident_city"
+            />
+            <field name="domain_force">
+                [('id', 'in', user.incident_partner_ids.incident_city_ids.ids)]
+            </field>
+            <field name="groups" eval="[(4, ref('mysisco_incident_register.group_incident_register_manager')), (4, ref('mysisco_incident_register.group_incident_register_staff'))]" />
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,1835 @@
+<odoo>
+    <template id="incident_thanks_template" name="Thank You">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure oe_empty">
+                <section
+                    class="s_text_block pt40 pb40 o_colored_level "
+                    data-snippet="s_text_block"
+                >
+                    <div class="container s_allow_columns">
+                        <div class="row">
+                            <div class="col-lg-7 col-xl-6 me-lg-auto">
+                                <span
+                                    class="d-block fa fa-4x fa-thumbs-up mx-auto rounded-circle bg-primary"
+                                />
+                                <br />
+                                <h1 class="text-center">Thank You!</h1>
+                                <div
+                                    class="pb16 pt16 s_hr"
+                                    data-snippet="s_hr"
+                                    data-name="Separator"
+                                >
+                                    <hr
+                                        class="mx-auto border-top w-50 border-dark text-center"
+                                    />
+                                </div>
+                                <h5 class="text-center">
+                                    <span class="fa fa-check-circle" />
+                                    <span>
+                                        Your incident has been sent
+                                        <b>successfully.</b>
+                                    </span>
+                                    use
+                                    request id
+                                    <span class="label label-info">
+                                        <t t-esc='indent_request_id.sudo().name' />
+                                    </span>
+                                    for further reference.
+                                </h5>
+                                <p class="text-center">
+                                    We will get back to you shortly.
+                                </p>
+                            </div>
+                            <div class="col-lg-4">
+                                <ul class="list-unstyled mb-0 ps-2">
+                                    <li>My Company</li>
+                                    <li>
+                                        <i class="fa fa-map-marker fa-fw me-2" />
+                                        <span class="o_force_ltr">
+                                            3575 Fake Buena Vista Avenue
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-phone fa-fw me-2" />
+                                        <span class="o_force_ltr">
+                                            +1 (650) 555-0111
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-1x fa-fw fa-envelope me-2" />
+                                        <span>info@yourcompany.example.com</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <template id="incident_register_form">
+        <t t-call="website.layout">
+            <t t-set="additional_title">Incident Register</t>
+
+            <section id="wrap" class="container">
+                <h1 class="mb-4 text-center">Incident Register Form</h1>
+                <section
+                    class="s_website_form o_incident_container_border"
+                    data-vcss="001"
+                    data-snippet="s_website_form"
+                >
+                    <div class="row">
+                        <div class="col-12">
+                            <t
+                                t-call="mysisco_incident_register.wizard_incident_register"
+                            >
+                                <t t-set="step" t-value="8" />
+                                <t t-set="customer_token" t-value="customer_token" />
+                            </t>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <form
+                            id="incident_form"
+                            action="/website/form/"
+                            method="post"
+                            enctype="multipart/form-data"
+                            class="o_mark_required"
+                            data-mark="*"
+                            data-model_name="incident.register"
+                            data-success-mode="redirect"
+                            data-success-page="/incident-thank-you"
+                        >
+                            <h3>
+                                <strong>Part 1: reporter Details</strong>
+                            </h3>
+                            <div class="s_website_form_rows row s_col_no_bgcolor">
+                                <div
+                                    class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                    data-type="char"
+                                    data-name="Field"
+                                >
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label
+                                            class="col-form-label col-sm-auto s_website_form_label"
+                                            for="partner_id"
+                                        >
+                                            <span class="s_website_form_label_content">
+                                                Name of the person reporting this
+                                                incident:
+                                            </span>
+                                            <span class="s_website_form_mark">*</span>
+                                        </label>
+                                        <div class="col-sm">
+                                            <input
+                                                id="partner_id"
+                                                type="text"
+                                                required=""
+                                                class="form-control s_website_form_input"
+                                                name="partner_name"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                    data-type="char"
+                                    data-name="Field"
+                                >
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label
+                                            class="col-form-label col-sm-auto s_website_form_label"
+                                            for="contact_number"
+                                        >
+                                            <span class="s_website_form_label_content">
+                                                Contact number:
+                                            </span>
+                                            <span class="s_website_form_mark">*</span>
+                                        </label>
+                                        <div class="col-sm">
+                                            <input
+                                                id="contact_number"
+                                                type="text"
+                                                required=""
+                                                class="form-control s_website_form_input"
+                                                name="contact_number"
+                                                data-fill-with="contact_number"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                    data-type="char"
+                                    data-name="Field"
+                                >
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label
+                                            class="col-form-label col-sm-auto s_website_form_label"
+                                            for="position"
+                                        >
+                                            <span class="s_website_form_label_content">
+                                                Position Title:
+                                            </span>
+                                            <span class="s_website_form_mark">*</span>
+                                        </label>
+                                        <div class="col-sm">
+                                            <input
+                                                id="position"
+                                                type="text"
+                                                required=""
+                                                class="form-control s_website_form_input"
+                                                name="position"
+                                                data-fill-with="position"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                    data-type="char"
+                                    data-name="Field"
+                                >
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label
+                                            class="col-form-label col-sm-auto s_website_form_label"
+                                            for="incident_number"
+                                        >
+                                            <span class="s_website_form_label_content">
+                                                Incident Report Number:
+                                            </span>
+                                            <span class="s_website_form_mark">*</span>
+                                        </label>
+                                        <div class="col-sm">
+                                            <input
+                                                id="incident_number"
+                                                type="text"
+                                                readonly="1"
+                                                class="form-control s_website_form_input"
+                                                name="name"
+                                                placeholder='INC00001'
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                    data-type="char"
+                                    data-name="Field"
+                                >
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label
+                                            class="col-form-label col-sm-auto s_website_form_label"
+                                            for="city"
+                                        >
+                                            <span class="s_website_form_label_content">
+                                                City:
+                                            </span>
+                                            <span class="s_website_form_mark">*</span>
+                                        </label>
+                                        <div class="col-sm">
+                                            <input
+                                                id="city"
+                                                type="test"
+                                                class="form-control s_website_form_input"
+                                                required=""
+                                                name="city"
+                                                data-fill-with="city"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <h3>
+                                <strong>Part 2: Incident Details</strong>
+                            </h3>
+                            <div
+                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                data-type="char"
+                                data-name="Field"
+                            >
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        for="date_received"
+                                    >
+                                        <span class="s_website_form_label_content">
+                                            Date Of Incident:
+                                        </span>
+                                        <span class="s_website_form_mark">*</span>
+                                    </label>
+                                    <div
+                                        class="col-sm s_website_form_datetime input-group date"
+                                    >
+                                        <input
+                                            type="text"
+                                            class="form-control datetimepicker-input s_website_form_input"
+                                            id="date_received"
+                                            required=""
+                                            placeholder='YYYY/MM/DD'
+                                            name="date_received"
+                                            data-toggle="datetimepicker"
+                                            data-date-format="YYYY-MM-DD"
+                                            t-attf-data-target="#date_received"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                data-type="char"
+                                data-name="Field"
+                            >
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        for="time_of_incident"
+                                    >
+                                        <span class="s_website_form_label_content">
+                                            Time Of Incident:
+                                        </span>
+                                        <span class="s_website_form_mark">*</span>
+                                    </label>
+                                    <div class="col-sm">
+                                        <input
+                                            class="form-control s_website_form_input"
+                                            id="time_of_incident"
+                                            type="time"
+                                            required=""
+                                            placeholder='HH:MM'
+                                            name="time_of_incident"
+                                            data-time-format="hh:mm A"
+                                            t-attf-data-target="#time_of_incident"
+                                            autocomplete="off"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                data-type="char"
+                                data-name="Field"
+                            >
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        for="address"
+                                    >
+                                        <span class="s_website_form_label_content">
+                                            Address:
+                                        </span>
+                                        <span class="s_website_form_mark">*</span>
+                                    </label>
+                                    <div class="col-sm">
+                                        <input
+                                            id="address"
+                                            type="text"
+                                            required=""
+                                            class="form-control s_website_form_input"
+                                            name="address"
+                                            data-fill-with="address"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                data-type="char"
+                                data-name="Field"
+                            >
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        for="date_first"
+                                    >
+                                        <span class="s_website_form_label_content">
+                                            Date first told you about the incident (if
+                                            applicable):
+                                        </span>
+                                        <span class="s_website_form_mark">*</span>
+                                    </label>
+                                    <div
+                                        class="col-sm s_website_form_datetime input-group date"
+                                    >
+                                        <input
+                                            type="text"
+                                            class="form-control datetimepicker-input s_website_form_input"
+                                            id="date_first"
+                                            required=""
+                                            placeholder='YYYY/MM/DD'
+                                            name="date_first"
+                                            data-toggle="datetimepicker"
+                                            data-date-format="YYYY-MM-DD"
+                                            t-attf-data-target="#date_first"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                data-type="char"
+                                data-name="Field"
+                            >
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        for="time_first_incident"
+                                    >
+                                        <span class="s_website_form_label_content">
+                                            Time first told you about the
+                                            incident (if applicable):
+                                        </span>
+                                        <span class="s_website_form_mark">*</span>
+                                    </label>
+                                    <div class="col-sm">
+                                        <input
+                                            class="form-control s_website_form_input"
+                                            id="time_first_incident"
+                                            type="time"
+                                            required=""
+                                            placeholder='HH:MM'
+                                            name="time_first_incident"
+                                            data-time-format="hh:mm A"
+                                            t-attf-data-target="#timepicker_1234567"
+                                            autocomplete="off"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                data-type="char"
+                                data-name="Field"
+                            >
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        for="incident_type"
+                                    >
+                                        <span class="s_website_form_label_content">
+                                            Incident Type:
+                                        </span>
+                                        <span class="s_website_form_mark">*</span>
+                                    </label>
+                                    <div class="col-sm" style="padding-left: 6rem;">
+                                        <div
+                                            t-foreach='incident_type'
+                                            t-as='label'
+                                            style="display:inline-block"
+                                        >
+                                            <label>
+                                                <input
+                                                    type="checkbox"
+                                                    required=""
+                                                    t-att-name="'%s_%s' % (prefix, label.id)"
+                                                    t-att-value='label.id'
+                                                />
+                                                <span t-field='label.name' />
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h3>
+                                <strong>Part 3: Who was involved?</strong>
+                            </h3>
+                            <h4>Participants: details</h4>
+                            <div
+                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                data-type="char"
+                                data-name="Field"
+                            >
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        for="full_name"
+                                    >
+                                        <span class="s_website_form_label_content">
+                                            Full Name:
+                                        </span>
+                                        <span class="s_website_form_mark">*</span>
+                                    </label>
+                                    <div class="col-sm">
+                                        <input
+                                            id="full_name"
+                                            type="test"
+                                            class="form-control s_website_form_input"
+                                            required=""
+                                            name="full_name"
+                                            data-fill-with="full_name"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                data-type="char"
+                                data-name="Field"
+                            >
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        for="date_of_birth"
+                                    >
+                                        <span class="s_website_form_label_content">
+                                            Date Of Birth:
+                                        </span>
+                                        <span class="s_website_form_mark">*</span>
+                                    </label>
+                                    <div
+                                        class="col-sm s_website_form_datetime input-group date"
+                                    >
+                                        <input
+                                            type="text"
+                                            class="form-control datetimepicker-input s_website_form_input"
+                                            id="date_of_birth"
+                                            required=""
+                                            placeholder='YYYY/MM/DD'
+                                            name="date_of_birth"
+                                            data-toggle="datetimepicker"
+                                            data-date-format="YYYY-MM-DD"
+                                            t-attf-data-target="#date_of_birth"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                data-type="char"
+                                data-name="Field"
+                            >
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        for="participant_address"
+                                    >
+                                        <span class="s_website_form_label_content">
+                                            Address:
+                                        </span>
+                                        <span class="s_website_form_mark">*</span>
+                                    </label>
+                                    <div class="col-sm">
+                                        <input
+                                            id="participant_address"
+                                            type="text"
+                                            required=""
+                                            class="form-control s_website_form_input"
+                                            name="participant_address"
+                                            data-fill-with="participant_address"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                data-type="char"
+                                data-name="Field"
+                            >
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        for="involved_witness"
+                                    >
+                                        <span class="s_website_form_label_content">
+                                            Involved/Witness
+                                        </span>
+                                        <span class="s_website_form_mark">*</span>
+                                    </label>
+                                    <div class="col-sm">
+                                        <input
+                                            id="involved_witness"
+                                            type="text"
+                                            required=""
+                                            class="form-control s_website_form_input"
+                                            name="involved_witness"
+                                            data-fill-with="involved_witness"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                data-type="char"
+                                data-name="Field"
+                            >
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        for="injured"
+                                    >
+                                        <span class="s_website_form_label_content">
+                                            Injured ?
+                                        </span>
+                                        <span class="s_website_form_mark">*</span>
+                                    </label>
+                                    <div class="col-sm">
+                                        <select
+                                            id="injured"
+                                            name="injured"
+                                            required=""
+                                            class="form-control s_website_form_input"
+                                            t-att-value="injured"
+                                        >
+                                            <option value="yes">Yes</option>
+                                            <option value="no">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                data-type="char"
+                                data-name="Field"
+                            >
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        for="medical_attention_required"
+                                    >
+                                        <span class="s_website_form_label_content">
+                                            Medical Attention required?
+                                        </span>
+                                        <span class="s_website_form_mark">*</span>
+                                    </label>
+                                    <div class="col-sm">
+                                        <select
+                                            id="medical_attention_required"
+                                            required=""
+                                            name="medical_attention_required"
+                                            class="form-control s_website_form_input"
+                                            t-att-value="medical_attention_required"
+                                        >
+                                            <option value="yes">Yes</option>
+                                            <option value="no">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h4>Staff/Carer or Others: details</h4>
+
+                            <div
+                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                data-type="char"
+                                data-name="Field"
+                            >
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        for="staff_full_name"
+                                    >
+                                        <span class="s_website_form_label_content">
+                                            Full Name:
+                                        </span>
+                                        <span class="s_website_form_mark">*</span>
+                                    </label>
+                                    <div class="col-sm">
+                                        <input
+                                            id="staff_full_name"
+                                            type="text"
+                                            required=""
+                                            class="form-control s_website_form_input"
+                                            name="staff_full_name"
+                                            data-fill-with="staff_full_name"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                data-type="char"
+                                data-name="Field"
+                            >
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        for="staff_address"
+                                    >
+                                        <span class="s_website_form_label_content">
+                                            Address:
+                                        </span>
+                                        <span class="s_website_form_mark">*</span>
+                                    </label>
+                                    <div class="col-sm">
+                                        <input
+                                            id="staff_address"
+                                            type="text"
+                                            required=""
+                                            class="form-control s_website_form_input"
+                                            name="staff_address"
+                                            data-fill-with="staff_address"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                data-type="char"
+                                data-name="Field"
+                            >
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        for="feedback_participat"
+                                    >
+                                        <span class="s_website_form_label_content">
+                                            Staff/Other:
+                                        </span>
+                                        <span class="s_website_form_mark">*</span>
+                                    </label>
+                                    <div class="col-sm">
+                                        <select
+                                            id="feedback_participat"
+                                            name="staff_other"
+                                            required=""
+                                            class="form-control s_website_form_input"
+                                        >
+                                            <option value="staff">Staff</option>
+                                            <option value="carer">Carer</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                data-type="char"
+                                data-name="Field"
+                            >
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        for="staff_involved_witness"
+                                    >
+                                        <span class="s_website_form_label_content">
+                                            Involved/Witness
+                                        </span>
+                                        <span class="s_website_form_mark">*</span>
+                                    </label>
+                                    <div class="col-sm">
+                                        <input
+                                            id="staff_involved_witness"
+                                            type="text"
+                                            required=""
+                                            class="form-control s_website_form_input"
+                                            name="staff_involved_witness"
+                                            data-fill-with="staff_involved_witness"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                data-type="char"
+                                data-name="Field"
+                            >
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        for="staff_injured"
+                                    >
+                                        <span class="s_website_form_label_content">
+                                            Injured ?
+                                        </span>
+                                        <span class="s_website_form_mark">*</span>
+                                    </label>
+                                    <div class="col-sm">
+                                        <select
+                                            id="staff_injured"
+                                            name="staff_injured"
+                                            required=""
+                                            class="form-control s_website_form_input"
+                                            t-att-value="staff_injured"
+                                        >
+                                            <option value="yes">Yes</option>
+                                            <option value="no">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                data-type="char"
+                                data-name="Field"
+                            >
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        for="staff_medical_attention_required"
+                                    >
+                                        <span class="s_website_form_label_content">
+                                            Medical Attention required?
+                                        </span>
+                                        <span class="s_website_form_mark">*</span>
+                                    </label>
+                                    <div class="col-sm">
+                                        <select
+                                            id="staff_medical_attention_required"
+                                            required=""
+                                            name="staff_medical_attention_required"
+                                            class="form-control s_website_form_input"
+                                            t-att-value="staff_medical_attention_required"
+                                        >
+                                            <option value="yes">Yes</option>
+                                            <option value="no">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h3>
+                                <strong>Part 4: Incident Background</strong>
+                            </h3>
+                            <div
+                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                data-type="char"
+                                data-name="Field"
+                            >
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        for="before_incident"
+                                    >
+                                        <span class="s_website_form_label_content">
+                                            (eg. What was client doing before
+                                            incident) ?
+                                        </span>
+                                        <span class="s_website_form_mark">*</span>
+                                    </label>
+                                    <div class="col-sm">
+                                        <textarea
+                                            id="before_incident"
+                                            type="text"
+                                            required=""
+                                            rows="5"
+                                            class="form-control s_website_form_input o_incident_address"
+                                            name="before_incident"
+                                            data-fill-with="before_incident"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <h3>
+                                <strong>Part 5: What happened?</strong>
+                            </h3>
+                            <div
+                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                data-type="char"
+                                data-name="Field"
+                            >
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        for="description"
+                                    >
+                                        <span class="s_website_form_label_content">
+                                            Incident Description:
+                                        </span>
+                                        <span class="s_website_form_mark">*</span>
+                                    </label>
+                                    <div class="col-sm">
+                                        <textarea
+                                            id="description"
+                                            type="text"
+                                            required=""
+                                            rows="5"
+                                            class="form-control s_website_form_input o_incident_address"
+                                            name="description"
+                                            data-fill-with="description"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                data-type="char"
+                                data-name="Field"
+                            >
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        for="immediate_action"
+                                    >
+                                        <span class="s_website_form_label_content">
+                                            Immediate action taken by Staff:
+                                        </span>
+                                        <span class="s_website_form_mark">*</span>
+                                    </label>
+                                    <div class="col-sm">
+                                        <textarea
+                                            id="immediate_action"
+                                            type="text"
+                                            required=""
+                                            rows="5"
+                                            class="form-control s_website_form_input o_incident_address"
+                                            name="immediate_action"
+                                            data-fill-with="immediate_action"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                data-type="char"
+                                data-name="Field"
+                            >
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        for="damaged_property"
+                                    >
+                                        <span class="s_website_form_label_content">
+                                            Was any property or equipment
+                                            damaged?
+                                        </span>
+                                        <span class="s_website_form_mark">*</span>
+                                    </label>
+                                    <div class="col-sm">
+                                        <select
+                                            id="damaged_property"
+                                            name="damaged_property"
+                                            required=""
+                                            class="form-control s_website_form_input"
+                                            t-att-value="damaged_property"
+                                        >
+                                            <option value="yes">Yes</option>
+                                            <option value="no">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                data-type="char"
+                                data-name="Field"
+                            >
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        for="contacted_police"
+                                    >
+                                        <span class="s_website_form_label_content">
+                                            Police Contacted?
+                                        </span>
+                                        <span class="s_website_form_mark">*</span>
+                                    </label>
+                                    <div class="col-sm">
+                                        <select
+                                            id="contacted_police"
+                                            name="contacted_police"
+                                            required=""
+                                            class="form-control s_website_form_input"
+                                            t-att-value="contacted_police"
+                                        >
+                                            <option value="yes">Yes</option>
+                                            <option value="no">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                data-type="char"
+                                data-name="Field"
+                            >
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        for="details"
+                                    >
+                                        <span class="s_website_form_label_content">
+                                            Details of Damage (if Applicable):
+                                        </span>
+                                        <span class="s_website_form_mark">*</span>
+                                    </label>
+                                    <div class="col-sm">
+                                        <textarea
+                                            id="details"
+                                            required=""
+                                            rows="5"
+                                            type="text"
+                                            class="form-control s_website_form_input o_incident_address"
+                                            name="details"
+                                            data-fill-with="details"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                data-type="char"
+                                data-name="Field"
+                            >
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        for="incident_reported"
+                                    >
+                                        <span class="s_website_form_label_content">
+                                            Incident reported to the Line Manager?
+                                        </span>
+                                        <span class="s_website_form_mark">*</span>
+                                    </label>
+                                    <div class="col-sm">
+                                        <select
+                                            id="incident_reported"
+                                            name="incident_reported"
+                                            required=""
+                                            class="form-control s_website_form_input"
+                                            t-att-value="incident_reported"
+                                        >
+                                            <option value="yes">Yes</option>
+                                            <option value="no">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                data-type="char"
+                                data-name="Field"
+                            >
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        for="manager_name"
+                                    >
+                                        <span class="s_website_form_label_content">
+                                            Manager’s name:
+                                        </span>
+                                        <span class="s_website_form_mark">*</span>
+                                    </label>
+                                    <div class="col-sm">
+                                        <input
+                                            id="manager_name"
+                                            type="text"
+                                            required=""
+                                            class="form-control s_website_form_input"
+                                            name="manager_name"
+                                            data-fill-with="manager_name"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                data-type="char"
+                                data-name="Field"
+                            >
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        for="date_123459"
+                                    >
+                                        <span class="s_website_form_label_content">
+                                            Date:
+                                        </span>
+                                        <span class="s_website_form_mark">*</span>
+                                    </label>
+                                    <div
+                                        class="col-sm s_website_form_datetime input-group date"
+                                    >
+                                        <input
+                                            type="text"
+                                            class="form-control datetimepicker-input s_website_form_input"
+                                            id="date_123459"
+                                            placeholder='YYYY/MM/DD'
+                                            name="date"
+                                            required=""
+                                            data-toggle="datetimepicker"
+                                            data-date-format="YYYY-MM-DD"
+                                            t-attf-data-target="#date_123459"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                data-type="char"
+                                data-name="Field"
+                            >
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        for="attachment"
+                                    >
+                                        <span class="s_website_form_label_content">
+                                            Attachment
+                                        </span>
+                                        <span class="s_website_form_mark">*</span>
+                                    </label>
+                                    <div class="col-sm">
+                                        <input
+                                            id="attachment"
+                                            type="text"
+                                            required=""
+                                            class="form-control s_website_form_input"
+                                            name="attachment"
+                                            data-fill-with="attachment"
+                                            placeholder="Attachments attached in section 5 to be displayed here"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                data-type="char"
+                                data-name="Field"
+                            >
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        for="signature"
+                                    >
+                                        <span class="s_website_form_label_content">
+                                            Reporter's Signature
+                                        </span>
+                                        <span class="s_website_form_mark">*</span>
+                                    </label>
+                                    <div class="col-sm">
+                                        <input
+                                            id="signature"
+                                            type="text"
+                                            required=""
+                                            class="form-control s_website_form_input"
+                                            name="signature"
+                                            data-fill-with="signature"
+                                            placeholder="TESTSIGN"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h3>
+                                <strong>Part 6: Manager’s report</strong>
+                            </h3>
+                            <div
+                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                data-type="char"
+                                data-name="Field"
+                            >
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        for="incident1"
+                                    >
+                                        <span class="s_website_form_label_content">
+                                            Manager Name:
+                                        </span>
+                                        <span class="s_website_form_mark">*</span>
+                                    </label>
+                                    <div class="col-sm">
+                                        <input
+                                            id="`incident1`"
+                                            type="text"
+                                            required=""
+                                            class="form-control s_website_form_input"
+                                            name="manager_name"
+                                            data-fill-with="manager_name"
+                                            placeholder="e.g. Manager Name"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                data-type="char"
+                                data-name="Field"
+                            >
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        for="phone"
+                                    >
+                                        <span class="s_website_form_label_content">
+                                            Contact:
+                                        </span>
+                                        <span class="s_website_form_mark">*</span>
+                                    </label>
+                                    <div class="col-sm">
+                                        <input
+                                            id="phone"
+                                            required=""
+                                            type="text"
+                                            class="form-control s_website_form_input"
+                                            name="phone"
+                                            data-fill-with="phone"
+                                            placeholder="e.g. 9999999999"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                data-type="char"
+                                data-name="Field"
+                            >
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        for="manager_position"
+                                    >
+                                        <span class="s_website_form_label_content">
+                                            Position:
+                                        </span>
+                                        <span class="s_website_form_mark">*</span>
+                                    </label>
+                                    <div class="col-sm">
+                                        <input
+                                            id="manager_position"
+                                            type="text"
+                                            required=""
+                                            class="form-control s_website_form_input"
+                                            name="manager_position"
+                                            data-fill-with="manager_position"
+                                            placeholder=""
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h4>What action have been taken?</h4>
+
+                            <div
+                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                data-type="char"
+                                data-name="Field"
+                            >
+                                <div
+                                    class="row s_col_no_resize s_col_no_bgcolor"
+                                >
+                                    <div class="col-sm">
+                                        <textarea
+                                            id="incident1"
+                                            required=""
+                                            type="text"
+                                            rows="5"
+                                            class="form-control"
+                                            name="what_action_taken"
+                                            data-fill-with="what_action_taken"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                data-type="char"
+                                data-name="Field"
+                            >
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        for="informed_date"
+                                    >
+                                        <span class="s_website_form_label_content">
+                                            Informed Date:
+                                        </span>
+                                        <span class="s_website_form_mark">*</span>
+                                    </label>
+                                    <div
+                                        class="col-sm s_website_form_datetime input-group date"
+                                    >
+                                        <input
+                                            type="text"
+                                            class="form-control datetimepicker-input s_website_form_input"
+                                            id="informed_date"
+                                            required=""
+                                            placeholder='YYYY/MM/DD'
+                                            name="informed_date"
+                                            data-toggle="datetimepicker"
+                                            data-date-format="YYYY-MM-DD"
+                                            t-attf-data-target="#informed_date"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                data-type="char"
+                                data-name="Field"
+                            >
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        for="informed_time"
+                                    >
+                                        <span class="s_website_form_label_content">
+                                            Informed Time:
+                                        </span>
+                                        <span class="s_website_form_mark">*</span>
+                                    </label>
+                                    <div class="col-sm">
+                                        <input
+                                            class="form-control s_website_form_input"
+                                            id="informed_time"
+                                            type="time"
+                                            required=""
+                                            placeholder='HH:MM'
+                                            name="informed_time"
+                                            data-time-format="hh:mm A"
+                                            t-attf-data-target="#timepicker_1234567"
+                                            autocomplete="off"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                data-type="char"
+                                data-name="Field"
+                            >
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        for="type_of_reportable"
+                                    >
+                                        <span class="s_website_form_label_content">
+                                            Type of reportable incident:
+                                        </span>
+                                        <span class="s_website_form_mark">*</span>
+                                    </label>
+                                    <div class="col-sm">
+                                        <select
+                                            id="type_of_reportable"
+                                            required=""
+                                            name="type_of_reportable"
+                                            class="form-control s_website_form_input"
+                                        >
+                                            <option>
+                                                <t
+                                                    t-foreach="type_of_reportable"
+                                                    t-as="rec"
+                                                >
+                                                    <option t-att-value="rec.id">
+                                                        <t t-out="rec.name" />
+                                                    </option>
+                                                </t>
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                data-type="char"
+                                data-name="Field"
+                            >
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        for="send_notification_to"
+                                    >
+                                        <span class="s_website_form_label_content">
+                                            Participant/Participant's
+                                            representative notified?
+                                        </span>
+                                        <span class="s_website_form_mark">*</span>
+                                    </label>
+                                    <div class="col-sm">
+                                        <select
+                                            id="send_notification_to"
+                                            name="send_notification_to"
+                                            required=""
+                                            class="form-control s_website_form_input"
+                                        >
+                                            <option>
+                                                <t
+                                                    t-foreach="send_notification"
+                                                    t-as="rec"
+                                                >
+                                                    <option t-att-value="rec.id">
+                                                        <t t-out="rec.name" />
+                                                    </option>
+                                                </t>
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h3>
+                                <strong>Part 7: Investigation</strong>
+                            </h3>
+                            <div
+                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                data-type="char"
+                                data-name="Field"
+                            >
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        for="investigation_possible_causes"
+                                    >
+                                        <span class="s_website_form_label_content">
+                                            Investigation undertaken into
+                                            possible causes:
+                                        </span>
+                                        <span class="s_website_form_mark">*</span>
+                                    </label>
+                                    <div class="col-sm">
+                                        <select
+                                            id="investigation_possible_causes"
+                                            required=""
+                                            name="investigation_possible_causes"
+                                            class="form-control s_website_form_input"
+                                            t-att-value="investigation_possible_causes"
+                                        >
+                                            <option value="yes">Yes</option>
+                                            <option value="no">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                data-type="char"
+                                data-name="Field"
+                            >
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        for="investigation_findings"
+                                    >
+                                        <span class="s_website_form_label_content">
+                                            Investigation Findings
+                                        </span>
+                                        <span class="s_website_form_mark">*</span>
+                                    </label>
+                                    <div class="col-sm">
+                                        <input
+                                            id="investigation_findings"
+                                            type="text"
+                                            required=""
+                                            class="form-control s_website_form_input"
+                                            name="investigation_findings"
+                                            data-fill-with="investigation_findings"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                data-type="char"
+                                data-name="Field"
+                            >
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        for="outcome_action"
+                                    >
+                                        <span class="s_website_form_label_content">
+                                            Outcome/Action following to mitigate
+                                            further incidents.
+                                        </span>
+                                        <span class="s_website_form_mark">*</span>
+                                    </label>
+                                    <div class="col-sm">
+                                        <input
+                                            id="outcome_action"
+                                            type="text"
+                                            required=""
+                                            class="form-control s_website_form_input"
+                                            name="outcome_action"
+                                            data-fill-with="outcome_action"
+                                            placeholder="Outcome / Action following to mitigate further incidents"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                data-type="char"
+                                data-name="Field"
+                            >
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        for="investigation_actions"
+                                    >
+                                        <span class="s_website_form_label_content">
+                                            Investigation Action Completed
+                                        </span>
+                                        <span class="s_website_form_mark">*</span>
+                                    </label>
+                                    <div class="col-sm">
+                                        <select
+                                            id="investigation_actions"
+                                            required=""
+                                            name="investigation_actions"
+                                            class="form-control s_website_form_input"
+                                            t-att-value="investigation_actions"
+                                            placeholder="Yes/No"
+                                        >
+                                            <option value="yes">Yes</option>
+                                            <option value="no">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                data-type="char"
+                                data-name="Field"
+                            >
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        for="action_complete_date"
+                                    >
+                                        <span class="s_website_form_label_content">
+                                            Investigation Action Date Completed
+                                        </span>
+                                        <span class="s_website_form_mark">*</span>
+                                    </label>
+                                    <div
+                                        class="col-sm s_website_form_datetime input-group date"
+                                    >
+                                        <input
+                                            type="text"
+                                            class="form-control datetimepicker-input s_website_form_input"
+                                            id="action_complete_date"
+                                            required=""
+                                            placeholder='YYYY/MM/DD'
+                                            name="action_complete_date"
+                                            data-toggle="datetimepicker"
+                                            data-date-format="YYYY-MM-DD"
+                                            t-attf-data-target="#action_complete_date"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                data-type="char"
+                                data-name="Field"
+                            >
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        for="investigation_desc"
+                                    >
+                                        <span class="s_website_form_label_content">
+                                            Investigation conducted by
+                                        </span>
+                                        <span class="s_website_form_mark">*</span>
+                                    </label>
+                                    <div class="col-sm">
+                                        <input
+                                            id="investigation_desc"
+                                            required=""
+                                            type="tel"
+                                            class="form-control s_website_form_input"
+                                            name="investigation_desc"
+                                            data-fill-with="investigation_desc"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h3>
+                                <strong>Part 8: Feedback:</strong>
+                            </h3>
+                            <div class="s_website_form_rows row s_col_no_bgcolor">
+                                <div
+                                    class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                    data-type="char"
+                                    data-name="Field"
+                                >
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label
+                                            class="col-form-label col-sm-auto s_website_form_label"
+                                            for="feedback_participat"
+                                        >
+                                            <span class="s_website_form_label_content">
+                                                Patricipant feedback on incident
+                                                handelling process
+                                            </span>
+                                            <span class="s_website_form_mark">*</span>
+                                        </label>
+                                        <div class="col-sm">
+                                            <select
+                                                id="feedback_participat"
+                                                required=""
+                                                name="feedback_participat"
+                                                class="form-control s_website_form_input"
+                                                t-att-value="feedback_participat"
+                                                placeholder="Yes/No"
+                                            >
+                                                <option value="yes">Yes</option>
+                                                <option value="no">No</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom"
+                                    data-type="char"
+                                    data-name="Field"
+                                >
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label
+                                            class="col-form-label col-sm-auto s_website_form_label"
+                                            for="comments"
+                                        >
+                                            <span class="s_website_form_label_content">
+                                                Participant feedback comments:
+                                            </span>
+                                            <span class="s_website_form_mark">*</span>
+                                        </label>
+                                        <div class="col-sm">
+                                            <input
+                                                id="comments"
+                                                required=""
+                                                type="text"
+                                                class="form-control s_website_form_input"
+                                                name="comments"
+                                                data-fill-with="comments"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="mb-0 py-2 col-12 s_website_form_field s_website_form_required s_website_form_model_required"
+                                    data-type="email"
+                                    data-name="Field"
+                                >
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label
+                                            class="col-form-label col-sm-auto s_website_form_label"
+                                            for="improvement_process_actions"
+                                        >
+                                            <span class="s_website_form_label_content">
+                                                Improvement to process. Action Required?
+                                            </span>
+                                            <span class="s_website_form_mark">*</span>
+                                        </label>
+                                        <div class="col-sm">
+                                            <input
+                                                id="improvement_process_actions"
+                                                type="text"
+                                                required=""
+                                                class="form-control s_website_form_input"
+                                                name="improvement_process_actions"
+                                                data-fill-with="improvement_process_actions"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom"
+                                    data-type="char"
+                                    data-name="Field"
+                                >
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label
+                                            class="col-form-label col-sm-auto s_website_form_label"
+                                            for="incident4"
+                                        >
+                                            <span class="s_website_form_label_content">
+                                                Process improvement implemented.
+                                            </span>
+                                            <span class="s_website_form_mark">*</span>
+                                        </label>
+                                        <div class="col-sm">
+                                            <select
+                                                id="incident1"
+                                                required=""
+                                                name="process_improvement"
+                                                class="form-control s_website_form_input"
+                                                t-att-value="process_improvement"
+                                                placeholder="Yes/No"
+                                            >
+                                                <option value="yes">Yes</option>
+                                                <option value="no">No</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="mb-0 py-2 col-12 s_website_form_field s_website_form_required s_website_form_model_required"
+                                    data-type="char"
+                                    data-name="Field"
+                                >
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label
+                                            class="col-form-label col-sm-auto s_website_form_label"
+                                            for="improvement_strategy_date"
+                                        >
+                                            <span class="s_website_form_label_content">
+                                                Process imporvement strategies completed
+                                            </span>
+                                            <span class="s_website_form_mark">*</span>
+                                        </label>
+                                        <div
+                                            class="col-sm s_website_form_datetime input-group date"
+                                        >
+                                            <input
+                                                type="text"
+                                                class="form-control datetimepicker-input s_website_form_input"
+                                                required=""
+                                                id="improvement_strategy_date"
+                                                placeholder='YYYY/MM/DD'
+                                                name="improvement_strategy_date"
+                                                data-toggle="datetimepicker"
+                                                data-date-format="YYYY-MM-DD"
+                                                t-attf-data-target="#improvement_strategy_date"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                    data-type="text"
+                                    data-name="Field"
+                                >
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label
+                                            class="col-form-label col-sm-auto s_website_form_label"
+                                            for="status"
+                                        >
+                                            <span class="s_website_form_label_content">
+                                                Status
+                                            </span>
+                                            <span class="s_website_form_mark">*</span>
+                                        </label>
+                                        <div class="col-sm">
+                                            <select
+                                                id="status"
+                                                required=""
+                                                name="status"
+                                                class="form-control s_website_form_input"
+                                                t-att-value="status"
+                                                placeholder="Yes/No"
+                                            >
+                                                <option value="action_proposed">
+                                                    Action proposed
+                                                </option>
+                                                <option value="investigation_complete">
+                                                    Investigation complete
+                                                </option>
+                                                <option value="unresolved">
+                                                    Unresolved
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                    data-type="text"
+                                    data-name="Field"
+                                >
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label
+                                            class="col-form-label col-sm-auto s_website_form_label"
+                                            for="report_quality_checked"
+                                        >
+                                            <span class="s_website_form_label_content">
+                                                Report Quality checked
+                                            </span>
+                                            <span class="s_website_form_mark">*</span>
+                                        </label>
+                                        <div class="col-sm">
+                                            <select
+                                                id="report_quality_checked"
+                                                name="report_quality_checked"
+                                                required=""
+                                                class="form-control s_website_form_input"
+                                                t-att-value="report_quality_checked"
+                                                placeholder="Yes/No"
+                                            >
+                                                <option value="yes">Yes</option>
+                                                <option value="no">No</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                    data-type="text"
+                                    data-name="Field"
+                                >
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label
+                                            class="col-form-label col-sm-auto s_website_form_label"
+                                            for="incident7"
+                                        >
+                                            <span class="s_website_form_label_content">
+                                                Attachment
+                                            </span>
+                                            <span class="s_website_form_mark">*</span>
+                                        </label>
+                                        <div class="col-sm">
+                                            <select
+                                                id="incident1"
+                                                name="feedback_attachment"
+                                                required=""
+                                                class="form-control s_website_form_input"
+                                                t-att-value="feedback_attachment"
+                                                placeholder="Yes/No"
+                                            >
+                                                <option value="yes">Yes</option>
+                                                <option value="no">No</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="mb-0 py-2 col-12 s_website_form_field s_website_form_custom s_website_form_required"
+                                    data-type="text"
+                                    data-name="Field"
+                                >
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label
+                                            class="col-form-label col-sm-auto s_website_form_label"
+                                            for="closed_date"
+                                        >
+                                            <span class="s_website_form_label_content">
+                                                Date incident closed:
+                                            </span>
+                                            <span class="s_website_form_mark">*</span>
+                                        </label>
+                                        <div
+                                            class="col-sm s_website_form_datetime input-group date"
+                                        >
+                                            <input
+                                                type="text"
+                                                required=""
+                                                class="form-control datetimepicker-input s_website_form_input"
+                                                id="closed_date"
+                                                placeholder='YYYY/MM/DD'
+                                                name="closed_date"
+                                                data-toggle="datetimepicker"
+                                                data-date-format="YYYY-MM-DD"
+                                                t-attf-data-target="#closed_date"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="mb-0 py-2 col-12 s_website_form_submit"
+                                    data-name="Submit Button"
+                                >
+                                    <div
+                                        style="width: 200px;"
+                                        class="s_website_form_label"
+                                    />
+                                    <a
+                                        href="#"
+                                        role="button"
+                                        class="btn btn-primary btn-lg s_website_form_send"
+                                    >
+                                        Submit
+                                    </a>
+                                    <span id="s_website_form_result" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+            </section>
+        </t>
+    </template>
+</odoo>

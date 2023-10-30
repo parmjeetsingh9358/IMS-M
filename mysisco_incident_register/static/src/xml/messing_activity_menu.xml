@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+
+    <t t-name="mail.MessagingMenuContainer.MessagingMenuHasGroupAccess" t-inherit="mail.MessagingMenuContainer" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('MessagingMenuContainer')]" position="attributes">
+            <attribute name="t-if">!IsGroupHasAccess</attribute>
+        </xpath>
+    </t>
+
+    <t t-name="mail.ActivityMenuView.ActivityMenuHasGroupAccess" t-inherit="mail.ActivityMenuView" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('o_ActivityMenuView')]" position="attributes">
+            <attribute name="t-if">!IsGroupHasAccess</attribute>
+        </xpath>
+    </t>
+
+</templates>
+
+

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-inherit="web.ListRenderer.RecordRow" t-inherit-mode="extension" owl="1">
+        <xpath expr="//tr//t/t[@t-if=&quot;column.type === &apos;button_group&apos;&quot;]" position="replace">
+            <t t-if="column.type === 'button_group' and column.buttons[0].clickParams.name === 'ims_action_open_employee'">
+                <td t-on-keydown.synthetic="(ev) => this.onCellKeydown(ev, group, record)"
+                    class="o_data_cell cursor-pointer" t-att-class="getCellClass(column, record)"
+                    t-on-click="(ev) => this.onButtonCellClicked(record, column, ev)" tabindex="-1">
+                    <t t-foreach="column.buttons" t-as="button" t-key="button.id">
+                        <ViewButton t-if="!evalModifier(button.modifiers.invisible, record)"
+                                    className="button.className"
+                                    clickParams="button.clickParams"
+                                    defaultRank="button.defaultRank"
+                                    disabled="button.disabled"
+                                    icon="button.icon"
+                                    record="record"
+                                    string="record.data.total_emp + ' Employee'"
+                                    title="button.title"
+                                    tabindex="props.list.editedRecord ? '-1' : '0'"
+                                    onClick="isX2Many and record.isVirtual ? displaySaveNotification.bind(this) : ''"
+                        />
+                    </t>
+                </td>
+            </t>
+            <t t-elif="column.type === 'button_group'">
+                <td t-on-keydown.synthetic="(ev) => this.onCellKeydown(ev, group, record)" class="o_data_cell cursor-pointer" t-att-class="getCellClass(column, record)" t-on-click="(ev) => this.onButtonCellClicked(record, column, ev)" tabindex="-1">
+                    <t t-foreach="column.buttons" t-as="button" t-key="button.id">
+                        <ViewButton t-if="!evalModifier(button.modifiers.invisible, record)"
+                            className="button.className"
+                            clickParams="button.clickParams"
+                            defaultRank="button.defaultRank"
+                            disabled="button.disabled"
+                            icon="button.icon"
+                            record="record"
+                            string="button.string"
+                            title="button.title"
+                            tabindex="props.list.editedRecord ? '-1' : '0'"
+                            onClick="isX2Many and record.isVirtual ? displaySaveNotification.bind(this) : ''"
+                        />
+                    </t>
+                </td>
+            </t>
+        </xpath>
+    </t>
+</templates>

@@ -1,0 +1,133 @@
+<odoo>
+    <record model="ir.ui.view" id="incident_city_tree_view_id">
+        <field name="name">incident.city.tree.view</field>
+        <field name="model">incident.city</field>
+        <field name="arch" type="xml">
+            <tree create="false">
+                <field name="name"/>
+                <field name="partner_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="incident_city_tree_view_id_for_emp">
+        <field name="name">incident.city.tree.view</field>
+        <field name="model">incident.city</field>
+        <field name="arch" type="xml">
+            <tree create="false">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="total_emp" invisible="1"/>
+                <button name="ims_action_open_employee" string="employee" type="object" class="btn btn-primary"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="incident_city_tree_view_id_for_emp_kanban" model="ir.ui.view">
+        <field name="name">incident.city.kanban.view</field>
+        <field name="model">incident.city</field>
+        <field name="arch" type="xml">
+            <kanban create="false" edit="false">
+                <kanban>
+                    <field name="name"/>
+                    <field name="total_emp"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="d-flex flex-column p-0 oe_kanban_card oe_kanban_global_click">
+                                <div class="o_kanban_content p-0 m-0 position-relative row d-flex flex-fill">
+                                    <div class="col-12 py-2 px-3 d-flex flex-column justify-content-between pt-3">
+                                        <div class="o_kanban_record_title o_text_overflow">
+                                            <field name="name"/>
+                                        </div>
+                                        <h5 class="o_event_fontsize_11 p-0">
+                                            <div class="oe_button_box" name="button_box">
+                                                    <button name="ims_action_open_employee" type="object" class="oe_stat_button"
+                                                            groups="mysisco_incident_register.group_incident_register_super_admin">
+                                                        <div class="o_form_field o_stat_info">
+                                                            <span class="o_stat_text">
+                                                                <field name="total_emp"/>
+                                                                <span>
+                                                                    employee
+                                                                </span>
+                                                            </span>
+                                                        </div>
+                                                    </button>
+                                            </div>
+                                        </h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="incident_city_search_view" model="ir.ui.view">
+        <field name="name">incident.city.search.view</field>
+        <field name="model">incident.city</field>
+        <field name="arch" type="xml">
+            <search string="Locations">
+                <field name="name" string="City" />
+                <field name="partner_id" string="Company" />
+                <group expand="0" string="Group By">
+                    <filter string="Company" name="group_company" context="{'group_by': 'partner_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="incident_city_form_view_id">
+        <field name="name">incident.city.form.view</field>
+        <field name="model">incident.city</field>
+        <field name="arch" type="xml">
+            <form string="Incident City">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_incident_action_location_id" model="ir.actions.act_window">
+        <field name="name">Locations</field>
+        <field name="res_model">incident.city</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="incident_city_tree_view_id"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a Incident Register Locations in your book.
+            </p>
+            <p>Odoo helps you track all activities related to your Locations.</p>
+        </field>
+    </record>
+
+
+    <record id="view_incident_action_location_id_for_emp" model="ir.actions.act_window">
+        <field name="name">Locations</field>
+        <field name="res_model">incident.city</field>
+        <field name="view_mode">tree,kanban</field>
+        <field name="view_id" ref="incident_city_tree_view_id_for_emp"/>
+        <field name="context">{'search_default_group_company':1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a Incident Register Locations in your book.
+            </p>
+            <p>Odoo helps you track all activities related to your Locations.</p>
+        </field>
+    </record>
+
+    <record id="create_incident_action_location_id" model="ir.actions.act_window">
+        <field name="name">Locations</field>
+        <field name="res_model">incident.city</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="incident_city_form_view_id"/>
+    </record>
+
+</odoo>

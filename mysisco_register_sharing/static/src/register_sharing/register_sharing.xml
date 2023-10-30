@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<templates xml:space="preserve">
+    <t t-name="mysisco_complain_register.RegisterSharingWebClient" owl="1">
+        <ActionContainer />
+        <MainComponentsContainer />
+    </t>
+</templates>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!--
+    © 2017 Creu Blanca
+    License AGPL-3.0 or later (https://www.gnuorg/licenses/agpl.html).
+    -->
+
+    <record id="incident_register_report_xlsx" model="ir.actions.report">
+        <field name="name">Incident Register Report</field>
+        <field name="model">incident.register</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">mysisco_incident_register.incident_register_report_xlsx</field>
+        <field name="report_file">mysisco_incident_register.incident_register_report_xlsx</field>
+        <field name="binding_type">report</field>
+        <field name="binding_model_id" ref="mysisco_incident_register.model_incident_register"/>
+    </record>
+
+</odoo>

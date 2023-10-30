@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!--  Type of reportable incident: -->
+
+
+    <!--  Type of incident: -->
+
+    <record id="type_of_incident_missing_person" model="incident.type">
+        <field name="name">Absent/Missing person</field>
+    </record>
+    <record id="type_of_incident_behaviour" model="incident.type">
+        <field name="name">Behaviour</field>
+    </record>
+    <record id="type_of_incident_confidentiality" model="incident.type">
+        <field name="name">Breach of Privacy/Confidentiality</field>
+    </record>
+    <record id="type_of_incident_death" model="incident.type">
+        <field name="name">Death</field>
+    </record>
+    <record id="type_of_incident_drug" model="incident.type">
+        <field name="name">Drug/Alcohol</field>
+    </record>
+    <record id="type_of_incident_injury" model="incident.type">
+        <field name="name">Illness/injury</field>
+    </record>
+    <record id="type_of_incident_medication_error" model="incident.type">
+        <field name="name">Medication error</field>
+    </record>
+    <record id="type_of_incident_assault" model="incident.type">
+        <field name="name">Assault(Physical/Sexual)</field>
+    </record>
+    <record id="type_of_incident_property_damage" model="incident.type">
+        <field name="name">Property damage</field>
+    </record>
+    <record id="type_of_incident_self_harm" model="incident.type">
+        <field name="name">Self-Harm</field>
+    </record>
+    <record id="type_of_incident_suicide_attempted" model="incident.type">
+        <field name="name">Suicide Attempted</field>
+    </record>
+    <record id="type_of_incident_near_miss" model="incident.type">
+        <field name="name">Near Miss</field>
+    </record>
+    <record id="type_of_incident_other" model="incident.type">
+        <field name="name">Other</field>
+    </record>
+
+    <record id="send_notification_type_Family" model="send.notification.type">
+        <field name="name">Family</field>
+    </record>
+    <record id="send_notification_type_workcover" model="send.notification.type">
+        <field name="name">workcover?</field>
+    </record>
+    <record id="send_notification_type_ndis_commission" model="send.notification.type">
+        <field name="name">NDIS Commission</field>
+    </record>
+    <record id="send_notification_type_f_n_commission" model="send.notification.type">
+        <field name="name">Family and NDIS Commission</field>
+    </record>
+
+
+</odoo>
